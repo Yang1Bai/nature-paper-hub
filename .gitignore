@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+*.pdf
+*.png
+*.docx
+*.pptx
+*.log
+.env
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
