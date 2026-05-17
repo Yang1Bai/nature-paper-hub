@@ -31,16 +31,19 @@ Present this menu and ask the user to choose:
 ```
 📋 请选择目标期刊 / Select target journal:
 
-1. Nature (IF 63.7)          — 顶级综合科学
-2. Nature Materials (IF 37.2) — 材料科学
-3. Nature Chemistry (IF 19.2) — 化学
-4. Nature Energy (IF 60.9)    — 能源
-5. Nature Catalysis (IF 37.8) — 催化
-6. Nature Sustainability (IF 25.1) — 可持续
-7. Nature Communications (IF 15.7) — 全科学，开放获取，最灵活
-8. Nature Methods (IF 32.1)   — 方法学
-9. Nature Computational Science (IF 12.0) — 计算科学
-10. 其他 / Other — 请告诉我期刊名
+1.  Nature (IF 63.7)                    — 顶级综合科学
+2.  Nature Materials (IF 37.2)          — 材料科学
+3.  Nature Chemistry (IF 19.2)          — 化学
+4.  Nature Energy (IF 60.9)             — 能源
+5.  Nature Catalysis (IF 37.8)          — 催化
+6.  Nature Sustainability (IF 25.1)     — 可持续发展
+7.  Nature Communications (IF 15.7)    — 全科学，开放获取，最灵活
+8.  Nature Methods (IF 32.1)            — 方法学
+9.  Nature Computational Science (IF 12.0) — 计算科学
+10. Nature Chemical Engineering (IF 13.0) — 化学工程
+11. Nature Machine Intelligence (IF 23.9) — 机器学习/AI/机器人
+12. Nature Synthesis (IF 20.0)          — 合成化学与材料合成
+13. 其他 / Other — 请告诉我期刊名
 ```
 
 After selection, load the corresponding entry from `templates/journal-specs.json` and display:
@@ -51,6 +54,25 @@ After selection, load the corresponding entry from `templates/journal-specs.json
 - Acceptance rate and IF
 
 Then ask: **"您的论文类型是 Article 还是 Letter？"**
+
+### ⚠️ Journal-specific special rules to load:
+
+**Nature Synthesis (选12):**
+- NO schemes — all graphics must be figures (no reaction scheme format)
+- Methods section CANNOT contain figures or tables — use Extended Data or SI
+- Results and Discussion may be combined into one section with subheadings
+- Discussion must be succinct and cannot have subheadings
+- Only one article type: Article (covers both short comms and full papers)
+
+**Nature Machine Intelligence (选11):**
+- Also accepts Analysis type (100–150 word abstract)
+- Reviews: ≤10% of references should have short annotations explaining key contributions
+- Strong preference for reproducibility: code/data availability is heavily weighted
+
+**Nature Chemical Engineering (选10):**
+- Methods called "Online Methods", placed after Discussion
+- Extended Data: up to 10 figures allowed
+- Focus on chemical engineering relevance: must address scale-up, process, or engineering challenge
 
 ---
 

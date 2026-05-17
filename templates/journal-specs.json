@@ -178,6 +178,115 @@
       },
       "style": "numbered",
       "scope": "Algorithms, software, computational approaches across all sciences"
+    },
+
+    "nature_chemical_engineering": {
+      "name": "Nature Chemical Engineering",
+      "url": "https://www.nature.com/natchemeng/for-authors",
+      "impact_factor": 13.0,
+      "acceptance_rate": "~8%",
+      "article_types": {
+        "article": {
+          "body_words": 3500,
+          "body_excludes": "abstract, Methods, references, figure legends",
+          "abstract_words": 150,
+          "abstract_unreferenced": true,
+          "figures": 6,
+          "extended_data": 10,
+          "references": 50,
+          "methods_location": "online_methods_after_discussion",
+          "methods_words": null,
+          "structure": ["Introduction (no heading)", "Results", "Discussion or Conclusions", "Online Methods"],
+          "notes": "Methods = Online Methods, placed after Discussion. Results and Methods have topical subheadings; Discussion has none."
+        },
+        "analysis": {
+          "body_words": 3500,
+          "abstract_words": 150,
+          "figures": 6,
+          "extended_data": 10,
+          "references": 50
+        },
+        "correspondence": {
+          "words_range": "300-800",
+          "figures": 1,
+          "references": 10
+        }
+      },
+      "style": "numbered",
+      "scope": "Chemical engineering: process design, reaction engineering, separations, transport phenomena, scale-up"
+    },
+
+    "nature_machine_intelligence": {
+      "name": "Nature Machine Intelligence",
+      "url": "https://www.nature.com/natmachintell/for-authors",
+      "impact_factor": 23.9,
+      "acceptance_rate": "~8%",
+      "article_types": {
+        "article": {
+          "body_words": 3500,
+          "body_excludes": "abstract, Methods, references, figure legends",
+          "abstract_words": 150,
+          "abstract_unreferenced": true,
+          "figures": 6,
+          "references": 50,
+          "methods_location": "after_discussion",
+          "structure": ["Introduction (no heading)", "Results", "Discussion", "Methods"],
+          "notes": "Results and Methods have topical subheadings; Discussion does not. Also accepts Analysis format (100-150 word abstract)."
+        },
+        "analysis": {
+          "body_words": 3500,
+          "abstract_words_range": "100-150",
+          "figures": 6,
+          "references": 50
+        },
+        "correspondence": {
+          "words_range": "500-1000",
+          "figures": 1,
+          "references": 10
+        },
+        "review": {
+          "body_words_range": "3000-4000",
+          "references": 100,
+          "notes": "≤10% of refs should have short annotations explaining key contributions"
+        }
+      },
+      "style": "numbered",
+      "scope": "Machine learning, deep learning, robotics, AI, computer vision, NLP, reinforcement learning"
+    },
+
+    "nature_synthesis": {
+      "name": "Nature Synthesis",
+      "url": "https://www.nature.com/natsynth/for-authors",
+      "impact_factor": 20.0,
+      "acceptance_rate": "~8%",
+      "article_types": {
+        "article": {
+          "body_words": 3000,
+          "body_excludes": "abstract, methods, references, figure/table captions",
+          "abstract_words": 150,
+          "abstract_unreferenced": true,
+          "figures": 6,
+          "references": 50,
+          "methods_location": "after_discussion",
+          "methods_words": 3000,
+          "structure": ["Introduction (no heading)", "Results", "Discussion", "Conclusions (optional)", "Methods"],
+          "special_rules": [
+            "NO schemes — use figures instead (unique to Nature Synthesis)",
+            "Methods section CANNOT contain figures or tables — use Extended Data or SI",
+            "Results and Discussion can be combined as 'Results and Discussion' with subheadings",
+            "Discussion should be succinct with NO subheadings",
+            "Non-graphical equations permitted in Methods"
+          ],
+          "notes": "Only one article type (Article). Spans short communications to full studies."
+        },
+        "correspondence": {
+          "words_range": "300-800",
+          "figures": 1,
+          "references": 10
+        }
+      },
+      "style": "numbered",
+      "scope": "Synthetic chemistry and materials synthesis: total synthesis, synthetic methodology, automated synthesis, retrosynthetic analysis"
     }
   }
 }

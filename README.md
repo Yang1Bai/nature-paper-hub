@@ -38,17 +38,23 @@
 
 ### 支持的 Nature 子刊
 
-| 期刊 | 影响因子 | 接收率 |
-|------|---------|--------|
-| Nature | 63.7 | ~8% |
-| Nature Materials | 37.2 | ~9% |
-| Nature Chemistry | 19.2 | ~9% |
-| Nature Energy | 60.9 | ~8% |
-| Nature Catalysis | 37.8 | ~8% |
-| Nature Sustainability | 25.1 | ~10% |
-| Nature Communications | 15.7 | ~20% |
-| Nature Methods | 32.1 | ~8-10% |
-| Nature Computational Science | 12.0 | ~12% |
+| 期刊 | 影响因子 | 接收率 | 正文字数 | 图数 | 引用 |
+|------|---------|--------|---------|------|------|
+| Nature | 63.7 | ~8% | 3,000 | 6 | 30 |
+| Nature Materials | 37.2 | ~9% | 3,000 | 6 | 50 |
+| Nature Chemistry | 19.2 | ~9% | 3,000 | 6 | 50 |
+| Nature Energy | 60.9 | ~8% | 3,000 | 6 | 50 |
+| Nature Catalysis | 37.8 | ~8% | 3,000 | 6 | 50 |
+| Nature Sustainability | 25.1 | ~10% | 4,000 | 8 | 60 |
+| Nature Communications | 15.7 | ~20% | 5,000† | 10 | 60 |
+| Nature Methods | 32.1 | ~8-10% | 3,000 | 6 | 50 |
+| Nature Computational Science | 12.0 | ~12% | 5,000 | 8 | 60 |
+| **Nature Chemical Engineering** | **13.0** | **~8%** | **3,500** | **6+10ED** | **50** |
+| **Nature Machine Intelligence** | **23.9** | **~8%** | **3,500** | **6** | **50** |
+| **Nature Synthesis** | **20.0** | **~8%** | **3,000** | **6‡** | **50** |
+
+† Nature Communications 字数含 Methods 章节  
+‡ Nature Synthesis 不接受 Scheme，只接受 Figure；Methods 中不可含图表
 
 ---
 
@@ -242,17 +248,23 @@ Compatible with **OpenClaw, Claude Code, and Codex**. Outputs **LaTeX (Overleaf-
 
 ### Supported Journals
 
-| Journal | Impact Factor | Acceptance Rate |
-|---------|:---:|:---:|
-| Nature | 63.7 | ~8% |
-| Nature Materials | 37.2 | ~9% |
-| Nature Chemistry | 19.2 | ~9% |
-| Nature Energy | 60.9 | ~8% |
-| Nature Catalysis | 37.8 | ~8% |
-| Nature Sustainability | 25.1 | ~10% |
-| Nature Communications | 15.7 | ~20% |
-| Nature Methods | 32.1 | ~8-10% |
-| Nature Computational Science | 12.0 | ~12% |
+| Journal | IF | Accept | Words | Figs | Refs |
+|---------|:---:|:---:|:---:|:---:|:---:|
+| Nature | 63.7 | ~8% | 3,000 | 6 | 30 |
+| Nature Materials | 37.2 | ~9% | 3,000 | 6 | 50 |
+| Nature Chemistry | 19.2 | ~9% | 3,000 | 6 | 50 |
+| Nature Energy | 60.9 | ~8% | 3,000 | 6 | 50 |
+| Nature Catalysis | 37.8 | ~8% | 3,000 | 6 | 50 |
+| Nature Sustainability | 25.1 | ~10% | 4,000 | 8 | 60 |
+| Nature Communications | 15.7 | ~20% | 5,000† | 10 | 60 |
+| Nature Methods | 32.1 | ~8-10% | 3,000 | 6 | 50 |
+| Nature Computational Science | 12.0 | ~12% | 5,000 | 8 | 60 |
+| **Nature Chemical Engineering** | **13.0** | **~8%** | **3,500** | **6+10ED** | **50** |
+| **Nature Machine Intelligence** | **23.9** | **~8%** | **3,500** | **6** | **50** |
+| **Nature Synthesis** | **20.0** | **~8%** | **3,000** | **6‡** | **50** |
+
+† Nature Communications word count includes Methods section  
+‡ Nature Synthesis does not accept Schemes — figures only; Methods section cannot contain figures or tables
 
 ---
 
