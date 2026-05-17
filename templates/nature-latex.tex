@@ -1,0 +1,231 @@
+% ============================================================
+% Nature Portfolio LaTeX Template
+% Compatible with: Nature, Nature Materials, Nature Chemistry,
+%   Nature Energy, Nature Catalysis, Nature Communications, etc.
+% ============================================================
+\documentclass[9pt,twoside,lineno]{article}
+
+% ---- Packages ----
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{chemformula}  % for chemical formulas: \ch{H2O}
+\usepackage{lineno}
+
+\geometry{
+  a4paper,
+  top=2.5cm, bottom=2.5cm,
+  left=2.5cm, right=2.5cm
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+% Line numbers (required for submission)
+\linenumbers
+
+% ---- Journal/Article Info (fill in) ----
+\newcommand{\journalname}{Nature [Sub-journal]}
+\newcommand{\articletype}{Article}  % Article / Letter / Brief Communication
+
+% ============================================================
+\begin{document}
+
+% ---- Title ----
+\begin{center}
+  {\LARGE\bfseries [Title: concise, informative, max ~15 words]}
+
+  \vspace{1em}
+
+  % Authors (use superscripts for affiliations)
+  Author One$^{1}$, Author Two$^{2}$, Corresponding Author$^{1,*}$
+
+  \vspace{0.5em}
+
+  \footnotesize
+  $^{1}$Department, Institution, City, Country \\
+  $^{2}$Department, Institution, City, Country \\
+  $^{*}$Correspondence: email@institution.edu
+
+  \vspace{0.5em}
+  \normalsize
+  \textbf{Keywords:} keyword1; keyword2; keyword3; keyword4; keyword5
+\end{center}
+
+\hrule
+\vspace{1em}
+
+% ============================================================
+% ABSTRACT (150–200 words depending on journal)
+% Nature style: single paragraph, no citations, no undefined abbreviations
+% ============================================================
+\noindent\textbf{Abstract}
+
+\noindent
+[One-paragraph abstract. Begin with the broad context (1–2 sentences). 
+State the problem or gap. Summarize the approach and key findings. 
+End with the significance/impact. No references, no abbreviations undefined 
+in the abstract itself. Target: 150 words for most Nature journals.]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+% INTRODUCTION (typically 4–6 paragraphs, ~800 words)
+% Nature style: end with a clear statement of what this paper reports
+% ============================================================
+\section*{Introduction}
+
+[Paragraph 1: Broad context and importance of the field.]
+
+[Paragraph 2: More specific background — what is known.]
+
+[Paragraph 3: The gap, challenge, or open question.]
+
+[Paragraph 4: Brief summary of your approach and key results.]
+
+[Final sentence: "Here we report / show / demonstrate..."]
+
+% ============================================================
+% RESULTS (core section — use descriptive subsection titles)
+% Each subsection should tell a story: observation → interpretation
+% ============================================================
+\section*{Results}
+
+\subsection*{[Subsection 1: e.g., Synthesis and structural characterization]}
+
+[Describe experiment/computation. Report observations with data. 
+Reference figures inline: (Fig.~\ref{fig:1}a). 
+Nature style: present data first, then interpret — avoid opinion without data.]
+
+\subsection*{[Subsection 2: e.g., Mechanistic investigation]}
+
+[...]
+
+\subsection*{[Subsection 3: e.g., Performance evaluation]}
+
+[...]
+
+% ============================================================
+% DISCUSSION (~400–600 words)
+% Interpret results, compare with literature, state limitations, outlook
+% ============================================================
+\section*{Discussion}
+
+[Paragraph 1: Summarize key findings and their significance.]
+
+[Paragraph 2: Comparison with existing literature — how your work advances the field.]
+
+[Paragraph 3: Mechanistic or theoretical interpretation.]
+
+[Paragraph 4: Limitations and future directions.]
+
+[Concluding sentence: State the broader impact.]
+
+% ============================================================
+% METHODS
+% Location depends on journal:
+%   - Nature, Nature Materials, etc.: AFTER references
+%   - Nature Communications: within main text
+% Subsections should mirror Results subsections
+% ============================================================
+\section*{Methods}
+
+\subsection*{Materials}
+[Chemicals/materials used, purity, source.]
+
+\subsection*{Synthesis / Sample Preparation}
+[Step-by-step synthesis protocol. Include quantities, temperatures, times.]
+
+\subsection*{Characterization}
+[Instruments, settings, standards used.]
+
+\subsection*{[Computational Methods / DFT / MD]}
+[Software, functional, basis set, pseudopotentials, k-points, cutoff, etc.]
+
+\subsection*{Data Analysis}
+[Statistical methods, software, error analysis.]
+
+% ============================================================
+% REFERENCES
+% Nature style: numbered, order of appearance, Vancouver-style
+% Format: Author(s). Title. Journal Vol, pages (Year).
+% ============================================================
+\bibliographystyle{naturemag}  % use naturemag.bst
+\bibliography{references}      % references.bib file
+
+% ============================================================
+% FIGURE LEGENDS (after references for most Nature journals)
+% ============================================================
+\section*{Figure Legends}
+
+\noindent\textbf{Figure 1 | [Short title describing the figure.]}
+[Detailed legend. Each panel labeled a, b, c... described in order.
+Include scale bars, error bars (mean ± s.d., n = X independent experiments),
+statistical test used. All abbreviations defined.]
+
+\noindent\textbf{Figure 2 | [Short title.]}
+[...]
+
+% ============================================================
+% EXTENDED DATA (Nature/Nature sub-journals; up to 10 items)
+% ============================================================
+% \section*{Extended Data}
+% Extended Data Fig. 1 | ...
+
+% ============================================================
+% SUPPLEMENTARY INFORMATION (reference in main text as ref. X)
+% ============================================================
+% Supplementary Information is submitted as a separate file.
+
+% ============================================================
+% END MATTER
+% ============================================================
+\section*{Data Availability}
+[State where data is deposited. E.g., "Source data for Figs. 1–4 are provided 
+with this paper. All other data are available from the corresponding author 
+upon reasonable request."]
+
+\section*{Code Availability}
+[If applicable: "Code used for analysis is available at [GitHub URL]."]
+
+\section*{Acknowledgements}
+[Funding sources (grant numbers), technical assistance, facilities used.]
+
+\section*{Author Contributions}
+[Use CRediT taxonomy. E.g., "X.X. conceived the study. X.X. and Y.Y. performed experiments. All authors discussed results and wrote the manuscript."]
+
+\section*{Competing Interests}
+[Declare or state: "The authors declare no competing interests."]
+
+\section*{Additional Information}
+Correspondence and requests for materials should be addressed to [Name] ([email]).
+
+% ============================================================
+% FIGURES (can be at end for submission, or separate files)
+% ============================================================
+\newpage
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{fig1}
+  \caption{\textbf{Figure 1 | Title.} (a) ... (b) ... 
+  Scale bar, X nm. Error bars represent mean ± s.d. ($n = X$).}
+  \label{fig:1}
+\end{figure}
+
+\end{document}
