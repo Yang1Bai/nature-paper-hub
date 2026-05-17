@@ -1,6 +1,17 @@
 ---
 name: nature-paper-hub
 description: Full-pipeline Nature-series journal writing assistant. Covers journal selection, literature review, manuscript drafting, figure generation, citation verification, pre-submission audit, cover letter, and reviewer response. Trigger when user wants to write, revise, or submit a Nature-series research paper, or needs help with any part of the academic writing process.
+version: 1.0.0
+author: Yang1Bai
+tags:
+  - academic-writing
+  - nature-journal
+  - scientific-writing
+  - research-paper
+  - latex
+  - claude-code
+  - codex
+  - openclaw
 ---
 
 # Nature Paper Hub
