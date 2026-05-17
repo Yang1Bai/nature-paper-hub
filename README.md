@@ -71,28 +71,41 @@ cp -R nature-paper-hub ~/.openclaw/workspace/skills/
 #### 方式二：Claude Code
 
 ```bash
-# 推荐：插件市场一键安装
-/plugin marketplace add https://github.com/Yang1Bai/nature-paper-hub
-/plugin install nature-paper-hub
-/reload-plugins
-```
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
 
-手动安装单个 skill：
-```bash
+# 安装为用户级 subagents（全局可用）
 mkdir -p ~/.claude/agents
 cp nature-paper-hub/skills/nature-figure/SKILL.md ~/.claude/agents/nature-figure.md
 cp nature-paper-hub/skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
 cp nature-paper-hub/skills/nature-citation/SKILL.md ~/.claude/agents/nature-citation.md
 cp nature-paper-hub/skills/nature-paper2ppt/SKILL.md ~/.claude/agents/nature-paper2ppt.md
+cp nature-paper-hub/SKILL.md ~/.claude/agents/nature-paper-hub.md
+```
+
+或安装为项目级 subagents（仅当前项目可用）：
+```bash
+mkdir -p .claude/agents
+cp nature-paper-hub/skills/*/SKILL.md .claude/agents/
+```
+
+安装完成后，在 Claude Code 中直接对话触发即可（无需额外命令）：
+```
+Use nature-figure to generate a matplotlib figure from my data.csv
 ```
 
 #### 方式三：Codex
 
 ```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+
+# 创建 skills 目录（默认不存在）并安装
 mkdir -p ~/.codex/skills
 for d in nature-paper-hub/skills/nature-*; do
   cp -R "$d" ~/.codex/skills/
 done
+
+# 验证安装
+ls ~/.codex/skills/
 # 重启 Codex 后生效
 ```
 
@@ -281,28 +294,41 @@ cp -R nature-paper-hub ~/.openclaw/workspace/skills/
 #### Option 2: Claude Code
 
 ```bash
-# Recommended: one-command plugin install
-/plugin marketplace add https://github.com/Yang1Bai/nature-paper-hub
-/plugin install nature-paper-hub
-/reload-plugins
-```
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
 
-Manual install (individual skills as subagents):
-```bash
+# Install as user-level subagents (available in all projects)
 mkdir -p ~/.claude/agents
 cp nature-paper-hub/skills/nature-figure/SKILL.md ~/.claude/agents/nature-figure.md
 cp nature-paper-hub/skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
 cp nature-paper-hub/skills/nature-citation/SKILL.md ~/.claude/agents/nature-citation.md
 cp nature-paper-hub/skills/nature-paper2ppt/SKILL.md ~/.claude/agents/nature-paper2ppt.md
+cp nature-paper-hub/SKILL.md ~/.claude/agents/nature-paper-hub.md
+```
+
+Or install as project-level subagents (current project only):
+```bash
+mkdir -p .claude/agents
+cp nature-paper-hub/skills/*/SKILL.md .claude/agents/
+```
+
+Once installed, trigger naturally in conversation — no extra commands needed:
+```
+Use nature-figure to generate a matplotlib figure from my data.csv
 ```
 
 #### Option 3: Codex
 
 ```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+
+# Create skills directory (does not exist by default) and install
 mkdir -p ~/.codex/skills
 for d in nature-paper-hub/skills/nature-*; do
   cp -R "$d" ~/.codex/skills/
 done
+
+# Verify installation
+ls ~/.codex/skills/
 # Restart Codex to pick up new skills.
 ```
 
