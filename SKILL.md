@@ -433,15 +433,25 @@ After all responses:
 
 ---
 
-## Integration: LitReview System (RAG for Writing Style)
+## Integration: Literature Search (two-tier)
 
-The user has a personal literature database at https://ybliterature.com
-API: GET https://ybliterature.com/api/search?q=<URL-encoded-query>
+### Tier 1 — Static papers index (available to ALL users)
+The repo includes `data/papers-index.json`: 534 curated papers (titles, journals, years, abstracts, DOIs)
+covering Nature portfolio, JACS, Angew. Chem., Adv. Mater., npj Computational Materials, and more.
 
-### Standard usage:
-- Always query LitReview BEFORE web search — user's own library has priority
-- Finding relevant papers to cite
-- Cross-referencing before doing external web searches
+Load and search it locally:
+```python
+import json
+with open('~/.openclaw/workspace/skills/nature-paper-hub/data/papers-index.json') as f:
+    index = json.load(f)['papers']
+# Simple keyword match:
+results = [p for p in index if query.lower() in (p['title']+p['abstract']).lower()]
+```
+Use for: finding relevant papers to cite, checking what's published, writing style reference.
+
+### Tier 2 — Personal LitReview system (owner only)
+API: GET https://ybliterature.com/api/search?q=<query> (requires authentication — owner use only)
+Always query Tier 1 first; use Tier 2 only when owner is running the session.
 
 Example call: `web_fetch("https://ybliterature.com/api/search?q=electrocatalysis+oxygen+evolution")`
 
