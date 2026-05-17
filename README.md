@@ -185,9 +185,13 @@ nature-paper-hub/
 | LaTeX / Overleaf 模板 | ✅ | ❌ | ❌ |
 | Word 导出 | ✅ | ❌ | ❌ |
 | matplotlib 科研绘图 | ✅ | ✅ | ❌ |
+| **CSV/Excel → 自动生图** | ✅ | ❌ | ❌ |
 | 双语论文阅读器 | ✅ | ✅ | ❌ |
 | 论文转 PPT | ✅ | ✅ | ❌ |
 | 引用多格式导出 | ✅ | ✅ | ❌ |
+| **CrossRef API 实时核验** | ✅ | ❌ | ❌ |
+| **RetractionWatch 撤稿检查** | ✅ | ❌ | ❌ |
+| **LitReview RAG 风格锚定** | ✅ | ❌ | ❌ |
 | 个人文献库集成 | ✅ | ❌ | ❌ |
 | Claude Code 插件 | ✅ | ✅ | ✅ |
 | Codex 兼容 | ✅ | ✅ | ✅ |

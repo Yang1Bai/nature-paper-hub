@@ -78,7 +78,20 @@ NATURE_COLORS = {
 
 ## Workflow
 
-### Step 1: Gather requirements
+### Step 0: Auto-figure from data file (fastest path)
+If user provides a CSV, Excel, or JSON data file:
+```bash
+python3 ~/.openclaw/workspace/skills/nature-paper-hub/scripts/auto_figure.py \
+  --input <data_file> \
+  --output ~/Downloads/figure_<date>.pdf \
+  --title "[figure title]" \
+  --xlabel "X axis label" \
+  --ylabel "Y axis label" \
+  --type [auto|line|bar|scatter|heatmap|box]
+```
+The script auto-detects column types, chooses appropriate chart type, applies Nature style, and saves PDF + PNG.
+
+### Step 1: Gather requirements (if no data file yet)
 Ask the user:
 1. What data do you have? (paste CSV, describe columns, or share values)
 2. How many panels? What does each panel show?

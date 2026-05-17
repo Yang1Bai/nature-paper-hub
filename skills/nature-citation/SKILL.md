@@ -24,22 +24,29 @@ Strict accuracy: every reference must be real, accessible, and support the cited
 
 ### Mode 1: Find citations for a claim
 1. User provides: a scientific claim or topic
-2. Search: `web_search("<claim> site:nature.com OR site:science.org OR site:cell.com")`
-3. Also search: LitReview at `https://ybliterature.com/api/search?q=<query>`
-4. Also search: `web_search("arxiv <topic> <year>")`
-5. For each candidate paper:
-   - Verify DOI resolves: `web_fetch("https://doi.org/<DOI>")`
-   - Check retraction: `web_search("<title> retraction OR retracted")`
+2. **First: search personal LitReview library** — `web_fetch("https://ybliterature.com/api/search?q=<URL-encoded-query>")`
+   - If results found: use these as primary citations (already in user's library)
+3. **CrossRef full-text search** — `web_fetch("https://api.crossref.org/works?query=<query>&filter=has-full-text:true&rows=5&sort=relevance")`
+   - Extract: DOI, title, authors, year, journal, is-referenced-by-count
+4. **Broader web search** — `web_search("<claim> site:nature.com OR site:science.org OR site:cell.com")`
+5. **arXiv** — `web_search("arxiv <topic> <year>")`
+6. For each candidate paper:
+   - **Verify via CrossRef**: `web_fetch("https://api.crossref.org/works/<DOI>")`
+     → confirms: real DOI, correct metadata, citation count
+   - **Check retraction via RetractionWatch**: `web_search("site:retractionwatch.com \"<title keywords>\"")`
+   - **Also check**: `web_search("<title> retraction OR retracted OR correction")`
    - Confirm it actually supports the claim (not just related)
-6. Return ranked list: most relevant first, with support assessment
+7. Return ranked list: most relevant first, with support assessment and citation count
 
 ### Mode 2: Verify existing reference list
 For each reference the user provides:
-1. Search for exact match: `web_search('"<author>" "<year>" "<journal>" "<title keywords>"')`
-2. Verify DOI if present
-3. Check if retracted
+1. **CrossRef DOI lookup** (most reliable):
+   - If DOI present: `web_fetch("https://api.crossref.org/works/<DOI>")`
+   - Compare returned metadata with user's reference — flag any discrepancy
+2. If no DOI: `web_search('"<author>" "<year>" "<journal>" "<title keywords>"')`
+3. **Retraction check**: `web_search("site:retractionwatch.com \"<first author> <year>\"")`
 4. Assess: does this ref support the claim it's cited for?
-5. Flag: ⚠️ if uncertain, ❌ if wrong/retracted, ✅ if verified
+5. Flag: ✅ verified via CrossRef | ⚠️ found but unverified | ❌ wrong metadata or retracted
 
 ### Mode 3: Export reference list
 Convert verified references to the requested format (see below).

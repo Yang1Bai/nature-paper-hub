@@ -302,17 +302,42 @@ When the user receives reviewer comments:
 
 ---
 
-## Integration: LitReview System
+## Integration: LitReview System (RAG for Writing Style)
 
 The user has a personal literature database at https://ybliterature.com
 API: GET https://ybliterature.com/api/search?q=<URL-encoded-query>
 
-Use this for:
-- Checking if related papers are already in the user's library
+### Standard usage:
+- Always query LitReview BEFORE web search — user's own library has priority
 - Finding relevant papers to cite
 - Cross-referencing before doing external web searches
 
 Example call: `web_fetch("https://ybliterature.com/api/search?q=electrocatalysis+oxygen+evolution")`
+
+### RAG-enhanced writing (use when drafting any section):
+Before drafting Introduction, Results, or Discussion:
+
+1. Query LitReview for the paper topic:
+   ```
+   web_fetch("https://ybliterature.com/api/search?q=<topic>")
+   ```
+2. From the returned papers, note:
+   - How they open the Introduction (first sentence patterns)
+   - How Results subsections are titled (use action phrases, not nouns)
+   - How Discussion compares with prior work
+   - Sentence structures used to present quantitative data
+3. Use these as **style anchors** when drafting — mirror the register,
+   hedging language, and argumentation patterns of real Nature papers
+   in the same field (not generic academic writing).
+4. When quoting style patterns, attribute: "[modelled on: Author et al., Journal, Year]"
+
+### CrossRef metadata enrichment:
+For any paper found in LitReview or cited by the user:
+```
+web_fetch("https://api.crossref.org/works/<DOI>")
+```
+This returns: full author list, exact title, volume/pages, citation count, funder info.
+Use citation count as a proxy for impact when recommending references.
 
 ---
 
