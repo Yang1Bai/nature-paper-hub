@@ -170,6 +170,13 @@ Work through each section one at a time. Ask for the user's raw data/notes for e
 - Target: exactly 150 words (or journal limit)
 - Tense: Present for known facts; Past for what you did; Present for conclusions
 
+**📊 After drafting abstract — always run word count check:**
+```
+Current word count: [X] / [journal limit]
+Status: [✅ within limit | ⚠️ X words over — suggest cuts below]
+```
+If over limit, suggest specific cuts: remove adjectives, merge sentences, cut background context.
+
 ### Introduction Writing Rules:
 - 4–6 paragraphs, ~800 words total
 - Each paragraph has a clear topic sentence
@@ -198,6 +205,23 @@ Work through each section one at a time. Ask for the user's raw data/notes for e
 - For computational work: functional, basis set, k-points, cutoff energy, software version
 - Statistical methods: which test, software, significance threshold (p < 0.05)
 - Ethics/IRB statements if applicable
+
+### 🔍 Post-Section Self-Critique (run after drafting EVERY section)
+After delivering each drafted section, immediately evaluate it from a Nature reviewer's perspective:
+
+```
+📋 Self-critique — [Section Name]:
+✅ Strengths:
+  - [what works well]
+⚠️ Weaknesses / likely reviewer concerns:
+  - [specific issue 1: e.g., "Claim in ¶2 lacks quantitative support"]
+  - [specific issue 2: e.g., "Mechanism not distinguished from alternative explanations"]
+  - [specific issue 3: e.g., "'Significantly' used without p-value"]
+💡 Suggested improvements:
+  - [concrete fix for each weakness]
+```
+
+Do NOT skip this step. If the user wants to proceed anyway, acknowledge the risks.
 
 ---
 
@@ -242,6 +266,16 @@ Flag any:
 - References that don't directly support the claim
 - Missing DOIs
 
+### 📋 Bulk Reference Formatting (quick mode)
+If user pastes a list of references in any format (Google Scholar export, DOI list, messy copy-paste):
+1. Parse each entry — extract authors, year, title, journal, volume, pages, DOI
+2. For any missing fields, look up via CrossRef: `web_fetch("https://api.crossref.org/works/<DOI>")`
+3. Re-format ALL entries into Nature numbered style in one batch
+4. Also output a `.bib` BibTeX block for the entire list
+5. Flag any entries that could not be verified
+
+Trigger phrase: "帮我格式化引用" / "format my references" / "整理参考文献"
+
 ---
 
 ## STAGE 6 — Pre-Submission Audit
@@ -277,6 +311,45 @@ Run through this checklist before export:
 - [ ] Suggested reviewers (3–5 names + emails + no conflict)
 - [ ] Excluded reviewers (if any)
 
+### 📝 Cover Letter Generation
+After checklist is complete, automatically generate a cover letter:
+
+```
+[Date]
+
+Dear [Editor-in-Chief / Editors of {Journal}],
+
+We are pleased to submit our manuscript entitled "[Title]" for consideration 
+as a [Article/Letter] in [Journal].
+
+[Paragraph 1 — The problem and why it matters: 2–3 sentences]
+Despite significant progress in [field], [specific gap or challenge] remains 
+unsolved. Addressing this challenge is critical because [broader impact].
+
+[Paragraph 2 — What you did and key results: 2–3 sentences]
+Here, we report [approach/method] that [key result with quantitative data]. 
+Notably, [most impressive finding, e.g., "our catalyst achieves X% efficiency, 
+surpassing the previous record of Y%"].
+
+[Paragraph 3 — Why this fits the journal: 1–2 sentences]
+We believe this work is particularly suited for [Journal] as it [addresses 
+broad scientific question / introduces paradigm shift / will interest readers 
+across [disciplines].
+
+This manuscript has not been published elsewhere and is not under consideration 
+by any other journal. All authors have approved the submission.
+
+We suggest the following reviewers: [Name, Affiliation, email] ...
+
+Thank you for your consideration.
+
+Sincerely,
+[Corresponding Author]
+[Affiliation, email]
+```
+
+Adjust tone based on journal prestige: Nature/Nature Materials → more assertive; Nature Communications → slightly more measured.
+
 ---
 
 ## STAGE 7 — Export
@@ -302,25 +375,56 @@ Ask user: **"导出格式？Overleaf (LaTeX) 还是 Word (.docx)？"**
 
 When the user receives reviewer comments:
 
-1. Ask user to paste the full decision letter + all reviewer comments
-2. For each comment, generate a response following this structure:
-   ```
-   **Reviewer X, Comment Y:**
-   [Quote the comment exactly]
+### Step 1: Triage — classify ALL comments before writing any response
 
-   **Response:**
-   We thank the reviewer for this insightful comment. [Acknowledge the point.]
-   [Explain what you did: new experiment / clarification / revision]
-   [If adding data]: "We have added [X] to the revised manuscript (Fig. X / Line X)."
-   [If disagreeing]: "We respectfully disagree because [evidence-based reason]."
+First, parse and classify every comment:
 
-   **Manuscript change:**
-   [Quote the revised text with line numbers, or state "no change required"]
-   ```
-3. After all responses, generate:
-   - Cover letter summarizing major changes
-   - List of all changes by line number
-   - Highlighted diff summary
+```
+📊 Reviewer Comment Triage:
+
+Reviewer 1:
+  Comment 1: [summary] → 🔴 Major | Needs new experiment
+  Comment 2: [summary] → 🟡 Major | Needs clarification/additional analysis  
+  Comment 3: [summary] → 🟢 Minor | Text revision only
+  Comment 4: [summary] → ✅ Valid concern | ❌ Disagree — evidence-based
+
+Reviewer 2:
+  ...
+
+📋 Revision Strategy:
+  New experiments needed: [list]
+  New analyses needed: [list]
+  Text-only revisions: [list]
+  Planned disagreements: [list with justification]
+  Estimated revision effort: [X weeks]
+```
+
+Present this triage to the user and confirm strategy before writing responses.
+
+### Step 2: Write point-by-point responses
+
+For each comment (after triage confirmed):
+```
+**Reviewer X, Comment Y:** [🔴/🟡/🟢]
+[Quote the comment exactly]
+
+**Response:**
+We thank the reviewer for this [insightful/constructive] comment.
+[Acknowledge validity of concern.]
+[Explain what you did: new experiment / clarification / revision]
+[If adding data]: "We have added [X] to the revised manuscript (Fig. X / Line X)."
+[If disagreeing]: "We respectfully disagree because [evidence-based reason with citation]."
+
+**Manuscript change:**
+[Quote revised text with line numbers, or state "no change required"]
+```
+
+### Step 3: Generate revision cover letter
+After all responses:
+- Summary of major changes (numbered)
+- List of new figures/data added
+- Statement of how each reviewer's concerns were addressed
+- Tone: confident but respectful
 
 ---
 
@@ -343,15 +447,22 @@ Before drafting Introduction, Results, or Discussion:
    ```
    web_fetch("https://ybliterature.com/api/search?q=<topic>")
    ```
-2. From the returned papers, note:
+2. **Filter returned results — only use high-impact journal papers as style anchors:**
+   Priority tier (use for style): Nature, Nature [sub-journals], Science, Cell, JACS, Angew. Chem., Adv. Mater., ACS Nano
+   Skip for style (still valid as citations): Electrochimica Acta, JES, Surf. Coat. Technol., J. Alloys Compd., and other engineering/applied journals
+   If the returned results are mostly lower-tier journals, supplement with:
+   ```
+   web_search("site:nature.com <topic> <year>")
+   ```
+3. From the **filtered** papers, note:
    - How they open the Introduction (first sentence patterns)
    - How Results subsections are titled (use action phrases, not nouns)
    - How Discussion compares with prior work
    - Sentence structures used to present quantitative data
-3. Use these as **style anchors** when drafting — mirror the register,
+4. Use these as **style anchors** when drafting — mirror the register,
    hedging language, and argumentation patterns of real Nature papers
    in the same field (not generic academic writing).
-4. When quoting style patterns, attribute: "[modelled on: Author et al., Journal, Year]"
+5. When quoting style patterns, attribute: "[modelled on: Author et al., Journal, Year]"
 
 ### CrossRef metadata enrichment:
 For any paper found in LitReview or cited by the user:
@@ -381,7 +492,10 @@ The user can say any of these to jump to a specific stage:
 - "写[某章节]" / "write [section]" → Stage 3
 - "图表规划" / "figure plan" → Stage 4
 - "检查引用" / "check citations" → Stage 5
+- "格式化引用" / "format references" → Stage 5 bulk mode
 - "投稿检查" / "submission check" → Stage 6
+- "写cover letter" / "cover letter" → Stage 6 cover letter
 - "导出" / "export" → Stage 7
 - "写回复信" / "rebuttal" → Stage 8
+- "审稿意见分类" / "triage reviewers" → Stage 8 triage only
 - "从头开始" / "start new paper" → Stage 0
