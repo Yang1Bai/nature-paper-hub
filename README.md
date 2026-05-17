@@ -212,6 +212,12 @@ nature-paper-hub/
 
 ---
 
+### 用户反馈 💬
+
+如果你用过这个工具写过论文，欢迎在 **[留言板](https://github.com/Yang1Bai/nature-paper-hub/discussions/1)** 分享体验。精选留言经审核后会展示在这里。
+
+---
+
 ### 致谢
 
 设计灵感部分来源于：
@@ -432,6 +438,12 @@ nature-paper-hub/
 | Claude Code plugin | ✅ | ✅ | ✅ |
 | Codex compatible | ✅ | ✅ | ✅ |
 | OpenClaw compatible | ✅ | ❌ | ❌ |
+
+---
+
+### User Feedback 💬
+
+If you have used this tool in your research, please share your experience on the **[feedback board](https://github.com/Yang1Bai/nature-paper-hub/discussions/1)**. Selected testimonials will be featured here after review.
 
 ---
 
