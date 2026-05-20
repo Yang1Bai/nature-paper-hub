@@ -1,7 +1,7 @@
 ---
 name: nature-paper-hub
 description: Full-pipeline Nature-series journal writing assistant. Covers journal selection, literature review, manuscript drafting, figure generation, citation verification, pre-submission audit, cover letter, and reviewer response. Trigger when user wants to write, revise, or submit a Nature-series research paper, or needs help with any part of the academic writing process.
-version: 1.1.0
+version: 1.0.0
 author: Yang1Bai
 tags:
   - academic-writing
@@ -59,14 +59,7 @@ Present this menu and ask the user to choose:
 10. Nature Chemical Engineering (IF 13.0) — 化学工程
 11. Nature Machine Intelligence (IF 23.9) — 机器学习/AI/机器人
 12. Nature Synthesis (IF 20.0)          — 合成化学与材料合成
-13. Science (IF 44.7)                   — 顶级综合科学
-14. Cell (IF 45.5)                      — 生命科学/生物医学
-15. PNAS (IF 11.1)                      — 美国科学院院报，开放获取
-16. JACS (IF 14.4)                      — 美国化学会旗舰期刊
-17. ACS Nano (IF 15.8)                  — 纳米科学与技术
-18. Angewandte Chemie (IF 16.1)         — 德国应用化学
-19. Advanced Materials (IF 27.4)        — 材料科学旗舰
-20. 其他 / Other — 请告诉我期刊名
+13. 其他 / Other — 请告诉我期刊名
 ```
 
 After selection, load the corresponding entry from `templates/journal-specs.json` and display:
@@ -176,6 +169,16 @@ Extended Data [optional, up to 10 items]
 For Nature Communications: Methods sits within the main text after Discussion.
 
 Ask the user to review and modify the outline before proceeding.
+
+---
+
+## STAGE 2.5 — Pre-Review Integrity Check
+
+Before simulating peer review, run `nature-integrity-check` in `pre-review` mode to catch citation errors, data inconsistencies, and missing required statements.
+
+**Invoke:** say `完整性检查` / `integrity check`
+
+⚠️ Must achieve zero CRITICAL issues before proceeding to Stage 7 reviewer simulation.
 
 ---
 
@@ -375,6 +378,26 @@ Adjust tone based on journal prestige: Nature/Nature Materials → more assertiv
 
 ---
 
+## STAGE 7 — Pre-Submission Reviewer Simulation
+
+Invoke `nature-reviewer-sim` for full 5-reviewer simulation calibrated to your target journal.
+
+**Modes:** full (recommended) | quick (15 min) | re-review (post-revision)
+
+**Invoke:** say `模拟审稿` / `reviewer simulation`
+
+---
+
+## STAGE 8.5 — Final Integrity Check
+
+⚠️ IRON RULE: Must achieve zero CRITICAL issues before export.
+
+Run `nature-integrity-check` in `final-check` mode.
+
+**Invoke:** say `最终检查` / `final integrity check`
+
+---
+
 ## STAGE 7 — Export
 
 Ask user: **"导出格式？Overleaf (LaTeX) 还是 Word (.docx)？"**
@@ -528,17 +551,16 @@ The user can say any of these to jump to a specific stage:
 - "格式化引用" / "format references" → Stage 5 bulk mode
 - "投稿检查" / "submission check" → Stage 6
 - "写cover letter" / "cover letter" → Stage 6 cover letter
-- "导出" / "export" → Stage 7
+- "导出" / "export" → Stage 7 (Export)
 - "写回复信" / "rebuttal" → Stage 8
 - "审稿意见分类" / "triage reviewers" → Stage 8 triage only
 - "从头开始" / "start new paper" → Stage 0
-
----
-
-## STAGE PRE — Pre-submission Reviewer Simulation
-
-**Trigger keywords:** 模拟审稿 / reviewer simulation / simulate peer review / pre-submission review
-
-Load and execute the `nature-reviewer-sim` skill from `skills/nature-reviewer-sim/SKILL.md`.
-
-This stage can be run at any point before Stage 7 (Export). Recommended after completing all sections.
+- "完整性检查" / "integrity check" → Stage 2.5 (pre-review integrity check)
+- "投稿前检查" / "pre-submission check" → Stage 2.5
+- "模拟审稿" / "reviewer simulation" → Stage 7 (reviewer sim)
+- "审稿模拟" / "simulate peer review" → Stage 7 (reviewer sim)
+- "投稿前审稿" / "pre-submission review" → Stage 7 (reviewer sim)
+- "快速审稿" / "quick review" → Stage 7 quick mode
+- "验证审稿" / "re-review" → Stage 7 re-review mode
+- "最终检查" / "final integrity check" → Stage 8.5
+- "final-check" / "最终完整性检查" → Stage 8.5
