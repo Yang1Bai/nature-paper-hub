@@ -287,6 +287,167 @@
       },
       "style": "numbered",
       "scope": "Synthetic chemistry and materials synthesis: total synthesis, synthetic methodology, automated synthesis, retrosynthetic analysis"
+    },
+
+    "science": {
+      "name": "Science",
+      "url": "https://www.science.org/content/page/information-authors-science-journals",
+      "impact_factor": 44.7,
+      "acceptance_rate": "~7%",
+      "article_types": {
+        "article": {
+          "body_words": 4500,
+          "abstract_words": 150,
+          "figures": 6,
+          "references": 40,
+          "methods_location": "after_references"
+        },
+        "report": {
+          "body_words": 2500,
+          "abstract_words": 125,
+          "figures": 4,
+          "references": 30,
+          "methods_location": "after_references"
+        }
+      },
+      "style": "numbered",
+      "scope": "Multidisciplinary science: breakthrough research across all scientific disciplines"
+    },
+
+    "cell": {
+      "name": "Cell",
+      "url": "https://www.cell.com/cell/authors",
+      "impact_factor": 45.5,
+      "acceptance_rate": "~8%",
+      "article_types": {
+        "article": {
+          "body_words": 8000,
+          "abstract_words": 150,
+          "figures": 8,
+          "references": 100
+        },
+        "short_article": {
+          "body_words": 4000,
+          "abstract_words": 150,
+          "figures": 4,
+          "references": 50
+        }
+      },
+      "style": "numbered",
+      "scope": "Life sciences and biomedical research: cell biology, molecular biology, genetics, neuroscience"
+    },
+
+    "pnas": {
+      "name": "PNAS",
+      "url": "https://www.pnas.org/page/authors/authors",
+      "impact_factor": 11.1,
+      "acceptance_rate": "~18%",
+      "open_access_option": true,
+      "article_types": {
+        "research_article": {
+          "body_words": 6000,
+          "abstract_words": 250,
+          "figures": 6,
+          "references": 60
+        },
+        "brief_report": {
+          "body_words": 2500,
+          "abstract_words": 250,
+          "figures": 4,
+          "references": 30
+        }
+      },
+      "style": "numbered",
+      "scope": "Broad scientific disciplines: biological, physical, and social sciences — Proceedings of the National Academy of Sciences"
+    },
+
+    "jacs": {
+      "name": "JACS",
+      "url": "https://pubs.acs.org/journal/jacsat/authors",
+      "impact_factor": 14.4,
+      "acceptance_rate": "~11%",
+      "article_types": {
+        "article": {
+          "body_words": 6000,
+          "body_notes": "No hard word limit; ~6000 words typical",
+          "figures": 8,
+          "references": 60
+        },
+        "letter": {
+          "page_range": "4-6 pages",
+          "figures": 4,
+          "references": 40
+        }
+      },
+      "style": "ACS",
+      "scope": "All areas of chemistry: synthesis, mechanism, theory, spectroscopy, materials — JACS flagship ACS journal"
+    },
+
+    "acs_nano": {
+      "name": "ACS Nano",
+      "url": "https://pubs.acs.org/journal/ancac3/authors",
+      "impact_factor": 15.8,
+      "acceptance_rate": "~10%",
+      "article_types": {
+        "article": {
+          "body_words": 10000,
+          "figures": 10,
+          "references": 80
+        },
+        "letter": {
+          "body_words": 4000,
+          "figures": 5,
+          "references": 40
+        }
+      },
+      "style": "ACS",
+      "scope": "Nanoscience and nanotechnology: synthesis, assembly, transport, properties, and applications at the nanoscale"
+    },
+
+    "angewandte": {
+      "name": "Angewandte Chemie International Edition",
+      "url": "https://onlinelibrary.wiley.com/page/journal/15213773/homepage/forauthors.html",
+      "impact_factor": 16.1,
+      "acceptance_rate": "~10%",
+      "article_types": {
+        "research_article": {
+          "body_words": 5000,
+          "abstract_words": 150,
+          "figures": 8,
+          "references": 60
+        },
+        "communication": {
+          "body_words": 2500,
+          "abstract_words": 150,
+          "figures": 4,
+          "references": 30
+        }
+      },
+      "style": "Wiley",
+      "scope": "All areas of chemistry and chemical biology — German flagship international chemistry journal"
+    },
+
+    "advanced_materials": {
+      "name": "Advanced Materials",
+      "url": "https://onlinelibrary.wiley.com/page/journal/15214095/homepage/forauthors.html",
+      "impact_factor": 27.4,
+      "acceptance_rate": "~9%",
+      "article_types": {
+        "research_article": {
+          "body_words": 5000,
+          "abstract_words": 150,
+          "figures": 8,
+          "references": 60
+        },
+        "communication": {
+          "body_words": 2500,
+          "abstract_words": 150,
+          "figures": 4,
+          "references": 30
+        }
+      },
+      "style": "Wiley",
+      "scope": "Materials science flagship: functional materials, nanomaterials, biomaterials, energy materials"
     }
   }
 }

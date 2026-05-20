@@ -1,7 +1,7 @@
 ---
 name: nature-paper-hub
 description: Full-pipeline Nature-series journal writing assistant. Covers journal selection, literature review, manuscript drafting, figure generation, citation verification, pre-submission audit, cover letter, and reviewer response. Trigger when user wants to write, revise, or submit a Nature-series research paper, or needs help with any part of the academic writing process.
-version: 1.0.0
+version: 1.1.0
 author: Yang1Bai
 tags:
   - academic-writing
@@ -59,7 +59,14 @@ Present this menu and ask the user to choose:
 10. Nature Chemical Engineering (IF 13.0) — 化学工程
 11. Nature Machine Intelligence (IF 23.9) — 机器学习/AI/机器人
 12. Nature Synthesis (IF 20.0)          — 合成化学与材料合成
-13. 其他 / Other — 请告诉我期刊名
+13. Science (IF 44.7)                   — 顶级综合科学
+14. Cell (IF 45.5)                      — 生命科学/生物医学
+15. PNAS (IF 11.1)                      — 美国科学院院报，开放获取
+16. JACS (IF 14.4)                      — 美国化学会旗舰期刊
+17. ACS Nano (IF 15.8)                  — 纳米科学与技术
+18. Angewandte Chemie (IF 16.1)         — 德国应用化学
+19. Advanced Materials (IF 27.4)        — 材料科学旗舰
+20. 其他 / Other — 请告诉我期刊名
 ```
 
 After selection, load the corresponding entry from `templates/journal-specs.json` and display:
@@ -525,3 +532,13 @@ The user can say any of these to jump to a specific stage:
 - "写回复信" / "rebuttal" → Stage 8
 - "审稿意见分类" / "triage reviewers" → Stage 8 triage only
 - "从头开始" / "start new paper" → Stage 0
+
+---
+
+## STAGE PRE — Pre-submission Reviewer Simulation
+
+**Trigger keywords:** 模拟审稿 / reviewer simulation / simulate peer review / pre-submission review
+
+Load and execute the `nature-reviewer-sim` skill from `skills/nature-reviewer-sim/SKILL.md`.
+
+This stage can be run at any point before Stage 7 (Export). Recommended after completing all sections.
