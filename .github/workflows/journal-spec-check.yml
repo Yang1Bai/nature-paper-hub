@@ -46,9 +46,10 @@ jobs:
                   response = requests.get(url, timeout=15, allow_redirects=True,
                                           headers={"User-Agent": "Mozilla/5.0 (journal-spec-check-bot)"})
                   status = response.status_code
-                  ok = "✅" if status == 200 else "❌"
+                  # 200 = OK, 403 = bot-blocked but URL exists, both are fine
+                  ok = "✅" if status in (200, 403) else "❌"
                   print(f"{ok}  [{status}] {url}")
-                  if status != 200:
+                  if status not in (200, 403):
                       failed.append((url, status))
               except Exception as e:
                   print(f"❌  [ERR] {url} — {e}")

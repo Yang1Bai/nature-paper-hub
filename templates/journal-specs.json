@@ -179,7 +179,6 @@
       "style": "numbered",
       "scope": "Algorithms, software, computational approaches across all sciences"
     },
-
     "nature_chemical_engineering": {
       "name": "Nature Chemical Engineering",
       "url": "https://www.nature.com/natchemeng/for-authors",
@@ -196,7 +195,12 @@
           "references": 50,
           "methods_location": "online_methods_after_discussion",
           "methods_words": null,
-          "structure": ["Introduction (no heading)", "Results", "Discussion or Conclusions", "Online Methods"],
+          "structure": [
+            "Introduction (no heading)",
+            "Results",
+            "Discussion or Conclusions",
+            "Online Methods"
+          ],
           "notes": "Methods = Online Methods, placed after Discussion. Results and Methods have topical subheadings; Discussion has none."
         },
         "analysis": {
@@ -215,7 +219,6 @@
       "style": "numbered",
       "scope": "Chemical engineering: process design, reaction engineering, separations, transport phenomena, scale-up"
     },
-
     "nature_machine_intelligence": {
       "name": "Nature Machine Intelligence",
       "url": "https://www.nature.com/natmachintell/for-authors",
@@ -230,7 +233,12 @@
           "figures": 6,
           "references": 50,
           "methods_location": "after_discussion",
-          "structure": ["Introduction (no heading)", "Results", "Discussion", "Methods"],
+          "structure": [
+            "Introduction (no heading)",
+            "Results",
+            "Discussion",
+            "Methods"
+          ],
           "notes": "Results and Methods have topical subheadings; Discussion does not. Also accepts Analysis format (100-150 word abstract)."
         },
         "analysis": {
@@ -253,7 +261,6 @@
       "style": "numbered",
       "scope": "Machine learning, deep learning, robotics, AI, computer vision, NLP, reinforcement learning"
     },
-
     "nature_synthesis": {
       "name": "Nature Synthesis",
       "url": "https://www.nature.com/natsynth/for-authors",
@@ -269,7 +276,13 @@
           "references": 50,
           "methods_location": "after_discussion",
           "methods_words": 3000,
-          "structure": ["Introduction (no heading)", "Results", "Discussion", "Conclusions (optional)", "Methods"],
+          "structure": [
+            "Introduction (no heading)",
+            "Results",
+            "Discussion",
+            "Conclusions (optional)",
+            "Methods"
+          ],
           "special_rules": [
             "NO schemes — use figures instead (unique to Nature Synthesis)",
             "Methods section CANNOT contain figures or tables — use Extended Data or SI",
@@ -288,7 +301,6 @@
       "style": "numbered",
       "scope": "Synthetic chemistry and materials synthesis: total synthesis, synthetic methodology, automated synthesis, retrosynthetic analysis"
     },
-
     "science": {
       "name": "Science",
       "url": "https://www.science.org/content/page/information-authors-science-journals",
@@ -313,7 +325,6 @@
       "style": "numbered",
       "scope": "Multidisciplinary science: breakthrough research across all scientific disciplines"
     },
-
     "cell": {
       "name": "Cell",
       "url": "https://www.cell.com/cell/authors",
@@ -336,7 +347,6 @@
       "style": "numbered",
       "scope": "Life sciences and biomedical research: cell biology, molecular biology, genetics, neuroscience"
     },
-
     "pnas": {
       "name": "PNAS",
       "url": "https://www.pnas.org/page/authors/authors",
@@ -355,12 +365,17 @@
           "abstract_words": 250,
           "figures": 4,
           "references": 30
+        },
+        "article": {
+          "body_words": 6000,
+          "abstract_words": 250,
+          "figures": 6,
+          "references": 60
         }
       },
       "style": "numbered",
       "scope": "Broad scientific disciplines: biological, physical, and social sciences — Proceedings of the National Academy of Sciences"
     },
-
     "jacs": {
       "name": "JACS",
       "url": "https://pubs.acs.org/journal/jacsat/authors",
@@ -382,7 +397,6 @@
       "style": "ACS",
       "scope": "All areas of chemistry: synthesis, mechanism, theory, spectroscopy, materials — JACS flagship ACS journal"
     },
-
     "acs_nano": {
       "name": "ACS Nano",
       "url": "https://pubs.acs.org/journal/ancac3/authors",
@@ -403,7 +417,6 @@
       "style": "ACS",
       "scope": "Nanoscience and nanotechnology: synthesis, assembly, transport, properties, and applications at the nanoscale"
     },
-
     "angewandte": {
       "name": "Angewandte Chemie International Edition",
       "url": "https://onlinelibrary.wiley.com/page/journal/15213773/homepage/forauthors.html",
@@ -421,12 +434,17 @@
           "abstract_words": 150,
           "figures": 4,
           "references": 30
+        },
+        "article": {
+          "body_words": 5000,
+          "abstract_words": 150,
+          "figures": 8,
+          "references": 60
         }
       },
       "style": "Wiley",
       "scope": "All areas of chemistry and chemical biology — German flagship international chemistry journal"
     },
-
     "advanced_materials": {
       "name": "Advanced Materials",
       "url": "https://onlinelibrary.wiley.com/page/journal/15214095/homepage/forauthors.html",
@@ -444,6 +462,12 @@
           "abstract_words": 150,
           "figures": 4,
           "references": 30
+        },
+        "article": {
+          "body_words": 5000,
+          "abstract_words": 150,
+          "figures": 8,
+          "references": 60
         }
       },
       "style": "Wiley",
