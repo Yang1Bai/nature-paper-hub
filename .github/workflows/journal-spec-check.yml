@@ -1,0 +1,83 @@
+name: Journal Spec URL Health Check
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 09:00 UTC
+  workflow_dispatch:       # Manual trigger
+
+jobs:
+  check-journal-specs:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Check journal author guide URLs
+        id: url-check
+        run: |
+          python3 - <<'EOF'
+          import requests
+          import sys
+
+          urls = [
+              "https://www.nature.com/nature/for-authors",
+              "https://www.science.org/content/page/information-authors-science-journals",
+              "https://www.cell.com/cell/authors",
+              "https://www.pnas.org/page/authors/authors",
+          ]
+
+          failed = []
+          print("Journal spec URL health check")
+          print("=" * 50)
+
+          for url in urls:
+              try:
+                  response = requests.get(url, timeout=15, allow_redirects=True,
+                                          headers={"User-Agent": "Mozilla/5.0 (journal-spec-check-bot)"})
+                  status = response.status_code
+                  # 200 = OK, 403 = bot-blocked but URL exists, both are fine
+                  ok = "✅" if status in (200, 403) else "❌"
+                  print(f"{ok}  [{status}] {url}")
+                  if status not in (200, 403):
+                      failed.append((url, status))
+              except Exception as e:
+                  print(f"❌  [ERR] {url} — {e}")
+                  failed.append((url, "ERROR"))
+
+          print("=" * 50)
+          if failed:
+              print(f"\n⚠️  {len(failed)} URL(s) returned non-200:")
+              for u, s in failed:
+                  print(f"   {s}  {u}")
+              print("\nSetting output: failed=true")
+              with open("check_result.txt", "w") as f:
+                  f.write("failed")
+              sys.exit(0)  # Don't fail the step; let the next step decide
+          else:
+              print("\n✅ All URLs returned 200 OK.")
+              with open("check_result.txt", "w") as f:
+                  f.write("ok")
+          EOF
+
+      - name: Create issue if any URL failed
+        run: |
+          result=$(cat check_result.txt)
+          if [ "$result" = "failed" ]; then
+            gh issue create \
+              --title "Journal spec URL check failed" \
+              --body "One or more journal author guide URLs returned non-200. Please verify journal-specs.json is up to date." \
+              --label "maintenance"
+          else
+            echo "All URLs OK — no issue created."
+          fi
