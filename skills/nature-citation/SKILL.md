@@ -24,7 +24,7 @@ Strict accuracy: every reference must be real, accessible, and support the cited
 
 ### Mode 1: Find citations for a claim
 1. User provides: a scientific claim or topic
-2. **First: search personal LitReview library** — `web_fetch("https://ybliterature.com/api/search?q=<URL-encoded-query>")`
+2. **First: search the local papers index** (`data/papers-index.json`). If a personal literature API is configured via the `LITREVIEW_API` env var, also `web_fetch(f"{LITREVIEW_API}?q=<URL-encoded-query>")`. Never call a hardcoded private host.
    - If results found: use these as primary citations (already in user's library)
 3. **CrossRef full-text search** — `web_fetch("https://api.crossref.org/works?query=<query>&filter=has-full-text:true&rows=5&sort=relevance")`
    - Extract: DOI, title, authors, year, journal, is-referenced-by-count

@@ -1,0 +1,22 @@
+{
+  "name": "nature-paper-hub",
+  "owner": {
+    "name": "Yang1Bai",
+    "url": "https://github.com/Yang1Bai"
+  },
+  "metadata": {
+    "description": "Top-journal paper writing skills for Claude Code.",
+    "version": "1.2.0"
+  },
+  "plugins": [
+    {
+      "name": "nature-paper-hub",
+      "source": "./",
+      "description": "Full-pipeline writing agent for 19 top journals: journal selection, literature review, drafting, figures, citation verification, integrity check, reviewer simulation, audit, cover letter, export and rebuttal.",
+      "version": "1.2.0",
+      "author": { "name": "Yang1Bai", "url": "https://github.com/Yang1Bai" },
+      "license": "MIT",
+      "keywords": ["academic-writing", "nature", "science", "peer-review", "latex"]
+    }
+  ]
+}

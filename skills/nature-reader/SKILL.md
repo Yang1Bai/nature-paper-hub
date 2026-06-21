@@ -1,6 +1,6 @@
 ---
 name: nature-reader
-description: Full-paper bilingual reader for Nature-series papers. Converts a PDF or URL into a structured, annotated Markdown document with Chinese translation, figure grounding, source anchors, and section summaries. Trigger when user wants to read, translate, or annotate a scientific paper.
+description: Full-paper bilingual reader for top-tier journal papers (Nature, Science, Cell, PNAS, ACS, Wiley families). Converts a PDF or URL into a structured, annotated Markdown document with Chinese translation, figure grounding, source anchors, and section summaries. Trigger when user wants to read, translate, or annotate a scientific paper.
 ---
 
 # nature-reader

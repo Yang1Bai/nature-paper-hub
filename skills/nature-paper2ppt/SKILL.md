@@ -133,7 +133,7 @@ Authors: ... | Journal: ... | Year: ...
 ```
 
 ### Option B: PPTX file (requires python-pptx)
-Run: `python3 ~/.openclaw/workspace/skills/nature-paper-hub/scripts/export_pptx.py --input <paper-json> --output ~/Downloads/paper-slides.pptx`
+Run: `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/export_pptx.py --input <paper-json> --output ~/Downloads/paper-slides.pptx`
 
 ---
 

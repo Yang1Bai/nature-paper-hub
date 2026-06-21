@@ -1,6 +1,6 @@
 ---
 name: nature-reviewer-sim
-description: "Pre-submission peer review simulation calibrated to Nature-series journals. Deploys 7 specialist agents (field analyst, EIC, methodology reviewer, domain reviewer, perspective reviewer, devils advocate, editorial synthesizer) to simulate the full peer review process. Outputs structured reviewer reports, an Editorial Decision Letter, and a Revision Roadmap. Supports three modes: full (all 7 agents, default), quick (EIC only, ~15 min), and re-review (R&R traceability matrix for post-revision verification). Trigger keywords: 模拟审稿, reviewer simulation, pre-submission review, simulate peer review, 审稿模拟, 投稿前审稿, review my paper, 帮我审稿, 预审稿."
+description: "Pre-submission peer review simulation calibrated to top-tier journals (Nature, Science, Cell, PNAS, ACS, Wiley families). Deploys 7 specialist agents (field analyst, EIC, methodology reviewer, domain reviewer, perspective reviewer, devils advocate, editorial synthesizer) to simulate the full peer review process. Outputs structured reviewer reports, an Editorial Decision Letter, and a Revision Roadmap. Supports three modes: full (all 7 agents, default), quick (EIC only, ~15 min), and re-review (R&R traceability matrix for post-revision verification). Trigger keywords: 模拟审稿, reviewer simulation, pre-submission review, simulate peer review, 审稿模拟, 投稿前审稿, review my paper, 帮我审稿, 预审稿."
 metadata:
   version: "1.0"
   last_updated: "2026-05-20"
@@ -16,7 +16,7 @@ metadata:
 
 Simulates a complete Nature-journal peer review process before you submit. Automatically identifies the paper's field and target journal, configures 7 specialist reviewer agents, runs independent multi-perspective reviews, and produces an Editorial Decision Letter with a prioritized Revision Roadmap.
 
-**Key difference from a generic reviewer:** Every reviewer is calibrated to the specific Nature-series journal's standards, loaded from `../../templates/journal-specs.json`. Acceptance thresholds, scope judgments, and statistical standards all reflect the target journal's real expectations.
+**Key difference from a generic reviewer:** Every reviewer is calibrated to the specific Nature-series journal's standards, loaded from `${CLAUDE_PLUGIN_ROOT}/templates/journal-specs.json`. Acceptance thresholds, scope judgments, and statistical standards all reflect the target journal's real expectations.
 
 ---
 
@@ -97,7 +97,7 @@ User: "模拟审稿" / "Review this paper"
        +→ [field_analyst]
           1. Read complete manuscript
           2. Identify: primary field, methodology type, paper maturity
-          3. Load journal specs: read ../../templates/journal-specs.json
+          3. Load journal specs: read ${CLAUDE_PLUGIN_ROOT}/templates/journal-specs.json
              → Extract: scope, word limit, figure limit, ref limit, IF, acceptance rate
           4. Assess journal fit (1–5 scale)
           5. Configure 5 reviewer personas with specific:
@@ -182,7 +182,7 @@ User: "模拟审稿" / "Review this paper"
 
 ### Journal Specs Loading
 
-At Phase 0, `field_analyst` reads `../../templates/journal-specs.json` and extracts for the target journal:
+At Phase 0, `field_analyst` reads `${CLAUDE_PLUGIN_ROOT}/templates/journal-specs.json` and extracts for the target journal:
 
 ```json
 {

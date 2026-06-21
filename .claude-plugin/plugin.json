@@ -1,0 +1,23 @@
+{
+  "name": "nature-paper-hub",
+  "description": "Full-pipeline AI writing agent for submitting to 19 top journals (Nature portfolio + Science, Cell, PNAS, JACS, ACS Nano, Angewandte Chemie, Advanced Materials). Journal selection, literature review, drafting, figure generation, citation verification, integrity check, pre-submission reviewer simulation, audit, cover letter, export (LaTeX/Word/PPTX) and reviewer rebuttal.",
+  "version": "1.2.0",
+  "author": {
+    "name": "Yang1Bai",
+    "url": "https://github.com/Yang1Bai"
+  },
+  "homepage": "https://github.com/Yang1Bai/nature-paper-hub",
+  "repository": "https://github.com/Yang1Bai/nature-paper-hub",
+  "license": "MIT",
+  "keywords": [
+    "academic-writing",
+    "nature",
+    "science",
+    "cell",
+    "acs",
+    "latex",
+    "peer-review",
+    "citation",
+    "scientific-figures"
+  ]
+}
