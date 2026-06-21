@@ -24,7 +24,7 @@
 
 支持 **OpenClaw、Claude Code、Codex** 三种平台，输出格式支持 **LaTeX（Overleaf）和 Word（.docx）**，并内置 CSV/Excel 自动生图、CrossRef 实时引用核验、个人文献库 RAG 写作风格锚定。
 
-**v1.1.0 新增：** 7 个 Science / Cell / ACS / Wiley 顶刊 + 投稿前模拟审稿技能 + 期刊规格自动维护 CI。
+**v1.2.0 新增：** Claude Code 插件打包、`nature-paper-hub` 单入口布局、`nature-integrity-check`、485 篇清洗文献索引，以及可选 `LITREVIEW_API` 私有文献库接入。
 
 ---
 
@@ -97,7 +97,50 @@
 
 ---
 
-#### 方式二：OpenClaw
+#### 手动安装前的关键规则
+
+> 不要只复制单个 `SKILL.md`。这些 skills 会读取仓库根目录的 `scripts/`、`templates/`、`data/` 和 `skills/nature-paper-hub/references/`。手动安装时请保留完整 clone，并设置 `CLAUDE_PLUGIN_ROOT` 指向该 clone。
+
+#### 方式二：Codex（完整 skill 目录 + 根资源）
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.codex/skills
+cp -R skills/nature-* ~/.codex/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+Windows PowerShell：
+
+```powershell
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills" | Out-Null
+Copy-Item -Recurse -Force .\skills\nature-* "$env:USERPROFILE\.codex\skills\"
+
+$env:CLAUDE_PLUGIN_ROOT = (Get-Location).Path
+py -3 -m pip install -r .\scripts\requirements.txt
+```
+
+#### 方式三：Claude Code（手动 skills）
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.claude/skills
+cp -R skills/nature-* ~/.claude/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+#### 方式四：OpenClaw
 
 ```bash
 git clone https://github.com/Yang1Bai/nature-paper-hub.git
@@ -105,42 +148,13 @@ cp -R nature-paper-hub ~/.openclaw/workspace/skills/
 # 重启 OpenClaw，对话中说"选刊"即可激活
 ```
 
-#### 方式三：Claude Code（手动 subagent）
+#### 验证安装
 
 ```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-
-# 安装为用户级 subagents（全局可用）
-mkdir -p ~/.claude/agents
-cp nature-paper-hub/skills/nature-paper-hub/SKILL.md ~/.claude/agents/nature-paper-hub.md
-cp nature-paper-hub/skills/nature-reviewer-sim/SKILL.md ~/.claude/agents/nature-reviewer-sim.md
-cp nature-paper-hub/skills/nature-figure/SKILL.md ~/.claude/agents/nature-figure.md
-cp nature-paper-hub/skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
-cp nature-paper-hub/skills/nature-citation/SKILL.md ~/.claude/agents/nature-citation.md
-cp nature-paper-hub/skills/nature-paper2ppt/SKILL.md ~/.claude/agents/nature-paper2ppt.md
+python -m unittest discover -s tests
 ```
 
-或安装为项目级 subagents（仅当前项目）：
-```bash
-mkdir -p .claude/agents
-cp nature-paper-hub/skills/*/SKILL.md .claude/agents/
-```
-
-#### 方式四：Codex
-
-```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-mkdir -p ~/.codex/skills
-for d in nature-paper-hub/skills/nature-*; do
-  cp -R "$d" ~/.codex/skills/
-done
-```
-
-#### 安装 Python 依赖
-
-```bash
-pip install -r nature-paper-hub/scripts/requirements.txt
-```
+手动安装后请不要删除 clone；`CLAUDE_PLUGIN_ROOT` 指向的目录就是脚本、模板和文献索引的资源根目录。
 
 ---
 
@@ -248,26 +262,23 @@ nature-paper-hub/
 
 ---
 
-### 与同类项目对比
+### 与同类项目对比（按最新版 main 校验）
 
-| 功能 | **top-journal-paper-hub** | Yuan1z0825/nature-skills | Boom5426/Nature-Paper-Skills |
-|------|:---:|:---:|:---:|
-| 期刊覆盖（Nature / Science / Cell / ACS / Wiley） | ✅ **19个** | ❌ Nature only | ✅ Nature only |
-| 全流程单入口路由 | ✅ | ❌ | ✅ |
-| 投稿前模拟审稿（7 专家 agent） | ✅ | ❌ | ❌ |
-| 投稿前完整性核验（引用/数据/图表/声明） | ✅ | ❌ | ❌ |
-| LaTeX / Overleaf 模板 | ✅ | ❌ | ❌ |
-| Word 导出（.docx） | ✅ | ❌ | ❌ |
-| matplotlib/R 科研绘图代码 | ✅ | ✅ | ❌ |
-| CSV/Excel → 自动生图 | ✅ | ❌ | ❌ |
-| 双语论文精读器 | ✅ | ✅ | ❌ |
-| 论文转 PPT（PPTX） | ✅ | ✅ | ❌ |
-| CrossRef 实时引用核验 | ✅ | ❌ | ❌ |
-| RetractionWatch 撤稿检查 | ✅ | ❌ | ❌ |
-| 期刊规格自动维护 CI | ✅ | ❌ | ❌ |
-| OpenClaw / Telegram 兼容 | ✅ | ❌ | ❌ |
-| Claude Code 插件 | ✅ | ✅ | ✅ |
-| Codex 兼容 | ✅ | ✅ | ✅ |
+> 对比基准：2026-06-21 检查 GitHub 默认分支；两个对比仓库均未发布 GitHub release，因此以当前 `main` 为准：Yuan1z0825/nature-skills [`5d2ba1dee1c0`](https://github.com/Yuan1z0825/nature-skills/commit/5d2ba1dee1c0)，Boom5426/Nature-Paper-Skills [`44cff42ac22a`](https://github.com/Boom5426/Nature-Paper-Skills/commit/44cff42ac22a)。若对方后续更新，应重新核对本表。
+
+| 维度 | **top-journal-paper-hub** | Yuan1z0825/nature-skills | Boom5426/Nature-Paper-Skills |
+|------|---|---|---|
+| 期刊覆盖 | **19 个**：Nature 系列 + Science / Cell / PNAS / ACS / Wiley | Nature / Nature Communications + 通用 Nature-style skill；未见 19 刊索引 | Nature 系列稿件栈；不追求全期刊覆盖 |
+| 总控入口 | `nature-paper-hub` 单入口，阶段 0-11 线性路由 | 多个 `nature-*` skill；README 未提供统一 hub | `paper-workflow` 顶层路由 |
+| 文献/RAG 底座 | 内置 485 篇清洗文献索引；可选 `LITREVIEW_API` 私有库 | `nature-academic-search` + `nature-citation`；未见内置清洗索引 | `citation-verifier` + `reference-audit-guide`；未见内置清洗索引 |
+| 写作/润色 | 选刊、综述、起草、润色、投稿、返修一体化 | `nature-writing`、`nature-polishing`、`nature-response` | `scientific-writing`、`manuscript-optimizer`、`rebuttal-response` |
+| 投稿前模拟审稿 | `nature-reviewer-sim`（7 专家 agent） | `nature-reviewer` | `paper-reviewer` |
+| 投稿前完整性核验 | `nature-integrity-check` 覆盖引用、数据、图表、必备声明 | 分散在 `nature-data`、`nature-citation`、`nature-reviewer` | `submission-audit` + `data-availability` + `citation-verifier` |
+| 引用与撤稿检查 | CrossRef 实时核验 + RetractionWatch/撤稿搜索 | CrossRef / PubMed / arXiv / Scopus / ScienceDirect；未见 RetractionWatch 专项 | CrossRef / Semantic Scholar 引用核验；未见 RetractionWatch 专项 |
+| 图表工作流 | CSV/Excel → 自动生图；matplotlib/R 投稿级图 | `nature-figure` 支持 Python/R 投稿图；强调源数据可追溯 | `figure-planner` 侧重图文结构和引用检查，未见自动生图脚本 |
+| 可交付格式 | LaTeX / Overleaf、Word `.docx`、PPTX | PPTX、专利 DOCX、LaTeX 排版支持；未见通用论文 Word 导出 | LaTeX/Overleaf 参考与演示支持；未见通用论文 Word 导出 |
+| Claude Code 打包 | `.claude-plugin/` 插件清单 + marketplace 元数据 | 可用于 Claude Code，但未见 `.claude-plugin/` 清单 | 提供 Claude Code 安装说明，但未见 `.claude-plugin/` 清单 |
+| Codex / OpenClaw | Codex 兼容；OpenClaw / Telegram 兼容 | Codex 优先；另含 OpenClaw medical skill 适配 | Codex + Claude Code 兼容 |
 
 ---
 
@@ -330,7 +341,7 @@ MIT License — 自由使用、修改和分发，保留原始署名即可。
 
 Compatible with **OpenClaw, Claude Code, and Codex**. Outputs **LaTeX (Overleaf-ready) and Word (.docx)**. Features automatic figure generation from CSV/Excel, CrossRef real-time citation verification, and optional RAG-enhanced writing grounded in your own literature library (configurable via the `LITREVIEW_API` env var; the tool works fully without it).
 
-**v1.1.0:** Added 7 Science/Cell/ACS/Wiley journals + pre-submission reviewer simulation skill + automated journal spec CI.
+**v1.2.0:** Added Claude Code plugin packaging, the single-entry `nature-paper-hub` layout, `nature-integrity-check`, a cleaned 485-paper index, and optional private-library integration via `LITREVIEW_API`.
 
 ---
 
@@ -403,7 +414,50 @@ All 7 skills (hub + 6 sub-skills) become available automatically — no manual c
 
 ---
 
-#### Option 2: OpenClaw
+#### Manual Install Rule
+
+> Do not copy only individual `SKILL.md` files. These skills read root-level `scripts/`, `templates/`, `data/`, and `skills/nature-paper-hub/references/`. For manual installs, keep the full clone and set `CLAUDE_PLUGIN_ROOT` to that clone.
+
+#### Option 2: Codex (full skill directories + root resources)
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.codex/skills
+cp -R skills/nature-* ~/.codex/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills" | Out-Null
+Copy-Item -Recurse -Force .\skills\nature-* "$env:USERPROFILE\.codex\skills\"
+
+$env:CLAUDE_PLUGIN_ROOT = (Get-Location).Path
+py -3 -m pip install -r .\scripts\requirements.txt
+```
+
+#### Option 3: Claude Code (manual skills)
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.claude/skills
+cp -R skills/nature-* ~/.claude/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+#### Option 4: OpenClaw
 
 ```bash
 git clone https://github.com/Yang1Bai/nature-paper-hub.git
@@ -411,35 +465,13 @@ cp -R nature-paper-hub ~/.openclaw/workspace/skills/
 # Restart OpenClaw. Say "选刊" or "choose journal" to activate.
 ```
 
-#### Option 3: Claude Code (manual subagent)
+#### Validate Install
 
 ```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-
-mkdir -p ~/.claude/agents
-cp nature-paper-hub/skills/nature-paper-hub/SKILL.md ~/.claude/agents/nature-paper-hub.md
-cp nature-paper-hub/skills/nature-reviewer-sim/SKILL.md ~/.claude/agents/nature-reviewer-sim.md
-cp nature-paper-hub/skills/nature-figure/SKILL.md ~/.claude/agents/nature-figure.md
-cp nature-paper-hub/skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
-cp nature-paper-hub/skills/nature-citation/SKILL.md ~/.claude/agents/nature-citation.md
-cp nature-paper-hub/skills/nature-paper2ppt/SKILL.md ~/.claude/agents/nature-paper2ppt.md
+python -m unittest discover -s tests
 ```
 
-#### Option 4: Codex
-
-```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-mkdir -p ~/.codex/skills
-for d in nature-paper-hub/skills/nature-*; do
-  cp -R "$d" ~/.codex/skills/
-done
-```
-
-#### Python dependencies
-
-```bash
-pip install -r nature-paper-hub/scripts/requirements.txt
-```
+After manual installation, keep the clone in place; the `CLAUDE_PLUGIN_ROOT` directory is the resource root for scripts, templates, and the literature index.
 
 ---
 
@@ -544,26 +576,23 @@ nature-paper-hub/
 
 ---
 
-### Comparison
+### Comparison (checked against latest main)
 
-| Feature | **top-journal-paper-hub** | Yuan1z0825/nature-skills | Boom5426/Nature-Paper-Skills |
-|---------|:---:|:---:|:---:|
-| Journal coverage (Nature / Science / Cell / ACS / Wiley) | ✅ **19** | ❌ Nature only | ✅ Nature only |
-| Single-entry full-pipeline routing | ✅ | ❌ | ✅ |
-| Pre-submission mock review (7 specialist agents) | ✅ | ❌ | ❌ |
-| Pre-submission integrity check (citations/data/figures/statements) | ✅ | ❌ | ❌ |
-| LaTeX / Overleaf template | ✅ | ❌ | ❌ |
-| Word export (.docx) | ✅ | ❌ | ❌ |
-| matplotlib/R figure code generation | ✅ | ✅ | ❌ |
-| CSV/Excel → auto figure | ✅ | ❌ | ❌ |
-| Bilingual paper reader | ✅ | ✅ | ❌ |
-| Paper to PPTX | ✅ | ✅ | ❌ |
-| CrossRef real-time citation verification | ✅ | ❌ | ❌ |
-| RetractionWatch retraction check | ✅ | ❌ | ❌ |
-| Automated journal spec CI | ✅ | ❌ | ❌ |
-| OpenClaw / Telegram compatible | ✅ | ❌ | ❌ |
-| Claude Code plugin | ✅ | ✅ | ✅ |
-| Codex compatible | ✅ | ✅ | ✅ |
+> Baseline: checked GitHub default branches on 2026-06-21. Neither comparison repository has a GitHub release, so this table uses current `main`: Yuan1z0825/nature-skills [`5d2ba1dee1c0`](https://github.com/Yuan1z0825/nature-skills/commit/5d2ba1dee1c0) and Boom5426/Nature-Paper-Skills [`44cff42ac22a`](https://github.com/Boom5426/Nature-Paper-Skills/commit/44cff42ac22a). Re-check this table after those projects update.
+
+| Dimension | **top-journal-paper-hub** | Yuan1z0825/nature-skills | Boom5426/Nature-Paper-Skills |
+|-----------|---|---|---|
+| Journal coverage | **19 journals**: Nature series + Science / Cell / PNAS / ACS / Wiley | Nature / Nature Communications + generic Nature-style skills; no 19-journal index found | Nature-series manuscript stack; not intended as broad all-journal coverage |
+| Top-level routing | Single `nature-paper-hub` entrypoint with stages 0-11 | Multiple `nature-*` skills; no unified hub shown in README | `paper-workflow` top-level router |
+| Literature/RAG base | Built-in cleaned 485-paper index; optional `LITREVIEW_API` private library | `nature-academic-search` + `nature-citation`; no bundled cleaned index found | `citation-verifier` + `reference-audit-guide`; no bundled cleaned index found |
+| Writing/revision | Journal choice, literature review, drafting, polishing, submission, and rebuttal in one pipeline | `nature-writing`, `nature-polishing`, `nature-response` | `scientific-writing`, `manuscript-optimizer`, `rebuttal-response` |
+| Mock review | `nature-reviewer-sim` with 7 specialist agents | `nature-reviewer` | `paper-reviewer` |
+| Integrity preflight | `nature-integrity-check` for citations, data, figures, and required statements | Distributed across `nature-data`, `nature-citation`, and `nature-reviewer` | `submission-audit` + `data-availability` + `citation-verifier` |
+| Citation and retraction checks | CrossRef verification + RetractionWatch/retraction search | CrossRef / PubMed / arXiv / Scopus / ScienceDirect; no RetractionWatch-specific workflow found | CrossRef / Semantic Scholar citation checks; no RetractionWatch-specific workflow found |
+| Figure workflow | CSV/Excel → auto figure; matplotlib/R publication figures | `nature-figure` supports Python/R publication figures and traceable source data | `figure-planner` focuses on figure story and reference checks; no auto-figure script found |
+| Deliverable formats | LaTeX / Overleaf, Word `.docx`, PPTX | PPTX, patent DOCX, LaTeX layout support; no general manuscript Word export found | LaTeX/Overleaf references and presentation support; no general manuscript Word export found |
+| Claude Code packaging | `.claude-plugin/` manifest + marketplace metadata | Usable from Claude Code, but no `.claude-plugin/` manifest found | Claude Code install docs, but no `.claude-plugin/` manifest found |
+| Codex / OpenClaw | Codex-compatible; OpenClaw / Telegram-compatible | Codex-first; also includes an OpenClaw medical skill adaptation | Codex + Claude Code compatible |
 
 ---
 
