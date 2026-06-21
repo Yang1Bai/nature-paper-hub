@@ -96,9 +96,9 @@ def add_section_heading(doc, text, level="section"):
 def add_body_paragraph(doc, text, first=False):
     """Add a double-spaced body paragraph."""
     para = doc.add_paragraph()
-    indent = 0 if first else 0           # Nature style: no first-line indent
+    # Nature style: no first-line indent (the `first` flag is kept for API compatibility)
     set_paragraph_format(para, space_before=0, space_after=0,
-                          line_spacing=24, first_line_indent=indent)
+                          line_spacing=24, first_line_indent=0)
     run = para.add_run(text)
     set_font(run, size_pt=12)
     return para

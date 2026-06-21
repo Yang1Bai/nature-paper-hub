@@ -1,6 +1,6 @@
 ---
 name: nature-figure
-description: Generate publication-quality figures for Nature-series journals using Python (matplotlib) or R (ggplot2). Trigger when user wants to create, polish, or redesign scientific figures for high-impact journals. Handles multi-panel layouts, Nature color palettes, correct typography, and exports SVG/PDF/PNG.
+description: Generate publication-quality figures for top-tier journals (Nature, Science, Cell, ACS, Wiley families) using Python (matplotlib) or R (ggplot2). Trigger when user wants to create, polish, or redesign scientific figures for high-impact journals. Handles multi-panel layouts, Nature color palettes, correct typography, and exports SVG/PDF/PNG.
 ---
 
 # nature-figure
@@ -81,7 +81,7 @@ NATURE_COLORS = {
 ### Step 0: Auto-figure from data file (fastest path)
 If user provides a CSV, Excel, or JSON data file:
 ```bash
-python3 ~/.openclaw/workspace/skills/nature-paper-hub/scripts/auto_figure.py \
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/auto_figure.py \
   --input <data_file> \
   --output ~/Downloads/figure_<date>.pdf \
   --title "[figure title]" \

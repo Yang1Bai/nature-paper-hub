@@ -103,11 +103,20 @@ def load_data(path: str) -> pd.DataFrame:
 def classify_columns(df: pd.DataFrame):
     numeric_cols = df.select_dtypes(include='number').columns.tolist()
     datetime_cols = df.select_dtypes(include=['datetime', 'datetimetz']).columns.tolist()
-    # also try parsing object cols as datetime
+    # also try parsing object columns as datetime, but skip columns that are
+    # really numeric (avoids e.g. integer IDs being misread as dates)
     for col in df.select_dtypes(include='object').columns:
+        series = df[col].dropna()
+        if series.empty:
+            continue
+        if pd.to_numeric(series, errors='coerce').notna().mean() > 0.8:
+            continue
         try:
-            pd.to_datetime(df[col])
-            datetime_cols.append(col)
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore')
+                parsed = pd.to_datetime(series, errors='raise')
+            if parsed.notna().mean() > 0.8:
+                datetime_cols.append(col)
         except Exception:
             pass
     categorical_cols = [c for c in df.columns
@@ -121,17 +130,21 @@ def auto_detect_type(df: pd.DataFrame, numeric_cols, categorical_cols, datetime_
     n_cat = len(categorical_cols)
     n_dt  = len(datetime_cols)
 
+    # time series → line
     if n_dt >= 1 and n_num >= 1:
         return 'line'
-    if n_cat == 1 and n_num == 1:
-        return 'bar'
+    # one categorical + one numeric: box/distribution when a category repeats,
+    # otherwise a simple bar (one value per category)
+    if n_cat >= 1 and n_num == 1:
+        cat = categorical_cols[0]
+        max_per_cat = df.groupby(cat).size().max() if len(df) else 1
+        return 'box' if max_per_cat > 1 else 'bar'
+    # all-numeric frames
     if n_num >= 2:
         # heuristic: square-ish all-numeric frame → heatmap
         if n_cat == 0 and n_dt == 0 and abs(len(df) - n_num) <= max(2, n_num * 0.3):
             return 'heatmap'
         return 'scatter'
-    if n_cat >= 1 and n_num >= 2:
-        return 'box'
     return 'bar'  # fallback
 
 

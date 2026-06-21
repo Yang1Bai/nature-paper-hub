@@ -1,6 +1,6 @@
 ---
 name: nature-integrity-check
-description: "Pre-submission and post-revision integrity verification for Nature-series manuscripts. Runs 5-phase protocol: citation integrity (calls nature-citation upstream), data & statistical claims cross-check, figure integrity, research integrity statements (auto-generates Data Availability, Code Availability, CRediT with 14 roles, Competing Interests, Ethics approval templates), and originality signals. Produces structured PASS/FAIL/WARNING report with CRITICAL/MAJOR/MINOR classification. Two modes: pre-review (before reviewer simulation, fix up to 3x on FAIL) and final-check (IRON RULE: zero CRITICAL to proceed to export). Trigger keywords: 完整性检查, integrity check, 投稿前检查, pre-submission check, 检查完整性, verify integrity, 投稿前验证."
+description: "Pre-submission and post-revision integrity verification for top-tier journal manuscripts (Nature, Science, Cell, PNAS, ACS, Wiley families). Runs 5-phase protocol: citation integrity (calls nature-citation upstream), data & statistical claims cross-check, figure integrity, research integrity statements (auto-generates Data Availability, Code Availability, CRediT with 14 roles, Competing Interests, Ethics approval templates), and originality signals. Produces structured PASS/FAIL/WARNING report with CRITICAL/MAJOR/MINOR classification. Two modes: pre-review (before reviewer simulation, fix up to 3x on FAIL) and final-check (IRON RULE: zero CRITICAL to proceed to export). Trigger keywords: 完整性检查, integrity check, 投稿前检查, pre-submission check, 检查完整性, verify integrity, 投稿前验证."
 metadata:
   version: "1.0"
   last_updated: "2026-05-20"
@@ -39,7 +39,7 @@ Performs end-to-end integrity verification of a Nature-series manuscript before 
 
 ## Two Operating Modes
 
-### Mode 1: `pre-review` (Stage 2.5 — Before Reviewer Simulation)
+### Mode 1: `pre-review` (Stage 6 — Before Reviewer Simulation)
 
 **Goal:** Catch integrity issues before `nature-reviewer-sim` runs.
 
@@ -53,7 +53,7 @@ Performs end-to-end integrity verification of a Nature-series manuscript before 
 
 ---
 
-### Mode 2: `final-check` (Stage 8.5 — Before Export)
+### Mode 2: `final-check` (Stage 9 — Before Export)
 
 **Goal:** Final gate before manuscript export. No CRITICAL issues allowed.
 
@@ -157,7 +157,7 @@ For all numerical claims citing a source:
 #### 3a. Figure-Text Consistency
 - All figures cited in order in body text (Fig. 1a before Fig. 2)?
 - Every figure cited in text has a corresponding figure file / description?
-- Figure count ≤ journal limit (from `../../templates/journal-specs.json`)?
+- Figure count ≤ journal limit (from `${CLAUDE_PLUGIN_ROOT}/templates/journal-specs.json`)?
 
 #### 3b. Figure Legend Completeness
 Each figure legend must include:
@@ -486,20 +486,21 @@ Items still requiring fix: [list]
 - Pass the integrity report summary to reviewer-sim so EIC agent is aware of any MINOR issues
 
 ### Downstream: Passes to Export (final-check PASS)
-- After final-check PASS → manuscript proceeds to nature-paper-hub Stage 7 export
+- After final-check PASS → manuscript proceeds to nature-paper-hub Stage 10 export
 - Attach the final integrity report as part of the submission package documentation
 
 ### Pipeline Position
 
 ```
-nature-paper-hub Stage 6 (Pre-Submission Audit)
-    → nature-integrity-check [pre-review mode]   ← Stage 2.5
+nature-paper-hub Stages 0–5 (draft + figures + citations)
+    → nature-integrity-check [pre-review mode]    ← Stage 6
           ↓ PASS
     → nature-reviewer-sim [full mode]             ← Stage 7
           ↓ revision complete
-    → nature-integrity-check [final-check mode]  ← Stage 8.5
+    → nature-paper-hub Stage 8 (Pre-Submission Audit + cover letter)
+    → nature-integrity-check [final-check mode]   ← Stage 9
           ↓ PASS (zero CRITICAL)
-    → nature-paper-hub Stage 7 (export)
+    → nature-paper-hub Stage 10 (export)
 ```
 
 ---
