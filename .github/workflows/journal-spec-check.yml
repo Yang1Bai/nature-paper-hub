@@ -27,19 +27,28 @@ jobs:
         id: url-check
         run: |
           python3 - <<'EOF'
+          import json
           import requests
           import sys
+          from pathlib import Path
 
-          urls = [
-              "https://www.nature.com/nature/for-authors",
-              "https://www.science.org/content/page/information-authors-science-journals",
-              "https://www.cell.com/cell/authors",
-              "https://www.pnas.org/page/authors/authors",
-          ]
+          spec_path = Path("templates/journal-specs.json")
+          specs = json.loads(spec_path.read_text(encoding="utf-8"))
+          urls = sorted({
+              journal["url"]
+              for journal in specs.get("journals", {}).values()
+              if journal.get("url")
+          })
 
           failed = []
-          print("Journal spec URL health check")
+          print(f"Journal spec URL health check ({len(urls)} URLs)")
           print("=" * 50)
+
+          if not urls:
+              print("No URLs found in templates/journal-specs.json")
+              with open("check_result.txt", "w") as f:
+                  f.write("failed")
+              sys.exit(0)
 
           for url in urls:
               try:
@@ -65,7 +74,7 @@ jobs:
                   f.write("failed")
               sys.exit(0)  # Don't fail the step; let the next step decide
           else:
-              print("\n✅ All URLs returned 200 OK.")
+              print("\n✅ All URLs returned an accepted status.")
               with open("check_result.txt", "w") as f:
                   f.write("ok")
           EOF
@@ -76,8 +85,11 @@ jobs:
           if [ "$result" = "failed" ]; then
             gh issue create \
               --title "Journal spec URL check failed" \
-              --body "One or more journal author guide URLs returned non-200. Please verify journal-specs.json is up to date." \
-              --label "maintenance"
+              --body "One or more journal author guide URLs from templates/journal-specs.json returned a non-accepted status. Please verify journal-specs.json is up to date." \
+              --label "maintenance" || \
+            gh issue create \
+              --title "Journal spec URL check failed" \
+              --body "One or more journal author guide URLs from templates/journal-specs.json returned a non-accepted status. Please verify journal-specs.json is up to date."
           else
             echo "All URLs OK — no issue created."
           fi

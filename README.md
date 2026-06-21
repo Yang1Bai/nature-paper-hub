@@ -24,7 +24,7 @@
 
 支持 **OpenClaw、Claude Code、Codex** 三种平台，输出格式支持 **LaTeX（Overleaf）和 Word（.docx）**，并内置 CSV/Excel 自动生图、CrossRef 实时引用核验、个人文献库 RAG 写作风格锚定。
 
-**v1.1.0 新增：** 7 个 Science / Cell / ACS / Wiley 顶刊 + 投稿前模拟审稿技能 + 期刊规格自动维护 CI。
+**v1.2.0 新增：** Claude Code 插件打包、`nature-paper-hub` 单入口布局、`nature-integrity-check`、485 篇清洗文献索引，以及可选 `LITREVIEW_API` 私有文献库接入。
 
 ---
 
@@ -97,7 +97,50 @@
 
 ---
 
-#### 方式二：OpenClaw
+#### 手动安装前的关键规则
+
+> 不要只复制单个 `SKILL.md`。这些 skills 会读取仓库根目录的 `scripts/`、`templates/`、`data/` 和 `skills/nature-paper-hub/references/`。手动安装时请保留完整 clone，并设置 `CLAUDE_PLUGIN_ROOT` 指向该 clone。
+
+#### 方式二：Codex（完整 skill 目录 + 根资源）
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.codex/skills
+cp -R skills/nature-* ~/.codex/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+Windows PowerShell：
+
+```powershell
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills" | Out-Null
+Copy-Item -Recurse -Force .\skills\nature-* "$env:USERPROFILE\.codex\skills\"
+
+$env:CLAUDE_PLUGIN_ROOT = (Get-Location).Path
+py -3 -m pip install -r .\scripts\requirements.txt
+```
+
+#### 方式三：Claude Code（手动 skills）
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.claude/skills
+cp -R skills/nature-* ~/.claude/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+#### 方式四：OpenClaw
 
 ```bash
 git clone https://github.com/Yang1Bai/nature-paper-hub.git
@@ -105,42 +148,13 @@ cp -R nature-paper-hub ~/.openclaw/workspace/skills/
 # 重启 OpenClaw，对话中说"选刊"即可激活
 ```
 
-#### 方式三：Claude Code（手动 subagent）
+#### 验证安装
 
 ```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-
-# 安装为用户级 subagents（全局可用）
-mkdir -p ~/.claude/agents
-cp nature-paper-hub/skills/nature-paper-hub/SKILL.md ~/.claude/agents/nature-paper-hub.md
-cp nature-paper-hub/skills/nature-reviewer-sim/SKILL.md ~/.claude/agents/nature-reviewer-sim.md
-cp nature-paper-hub/skills/nature-figure/SKILL.md ~/.claude/agents/nature-figure.md
-cp nature-paper-hub/skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
-cp nature-paper-hub/skills/nature-citation/SKILL.md ~/.claude/agents/nature-citation.md
-cp nature-paper-hub/skills/nature-paper2ppt/SKILL.md ~/.claude/agents/nature-paper2ppt.md
+python -m unittest discover -s tests
 ```
 
-或安装为项目级 subagents（仅当前项目）：
-```bash
-mkdir -p .claude/agents
-cp nature-paper-hub/skills/*/SKILL.md .claude/agents/
-```
-
-#### 方式四：Codex
-
-```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-mkdir -p ~/.codex/skills
-for d in nature-paper-hub/skills/nature-*; do
-  cp -R "$d" ~/.codex/skills/
-done
-```
-
-#### 安装 Python 依赖
-
-```bash
-pip install -r nature-paper-hub/scripts/requirements.txt
-```
+手动安装后请不要删除 clone；`CLAUDE_PLUGIN_ROOT` 指向的目录就是脚本、模板和文献索引的资源根目录。
 
 ---
 
@@ -327,7 +341,7 @@ MIT License — 自由使用、修改和分发，保留原始署名即可。
 
 Compatible with **OpenClaw, Claude Code, and Codex**. Outputs **LaTeX (Overleaf-ready) and Word (.docx)**. Features automatic figure generation from CSV/Excel, CrossRef real-time citation verification, and optional RAG-enhanced writing grounded in your own literature library (configurable via the `LITREVIEW_API` env var; the tool works fully without it).
 
-**v1.1.0:** Added 7 Science/Cell/ACS/Wiley journals + pre-submission reviewer simulation skill + automated journal spec CI.
+**v1.2.0:** Added Claude Code plugin packaging, the single-entry `nature-paper-hub` layout, `nature-integrity-check`, a cleaned 485-paper index, and optional private-library integration via `LITREVIEW_API`.
 
 ---
 
@@ -400,7 +414,50 @@ All 7 skills (hub + 6 sub-skills) become available automatically — no manual c
 
 ---
 
-#### Option 2: OpenClaw
+#### Manual Install Rule
+
+> Do not copy only individual `SKILL.md` files. These skills read root-level `scripts/`, `templates/`, `data/`, and `skills/nature-paper-hub/references/`. For manual installs, keep the full clone and set `CLAUDE_PLUGIN_ROOT` to that clone.
+
+#### Option 2: Codex (full skill directories + root resources)
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.codex/skills
+cp -R skills/nature-* ~/.codex/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills" | Out-Null
+Copy-Item -Recurse -Force .\skills\nature-* "$env:USERPROFILE\.codex\skills\"
+
+$env:CLAUDE_PLUGIN_ROOT = (Get-Location).Path
+py -3 -m pip install -r .\scripts\requirements.txt
+```
+
+#### Option 3: Claude Code (manual skills)
+
+```bash
+git clone https://github.com/Yang1Bai/nature-paper-hub.git
+cd nature-paper-hub
+
+mkdir -p ~/.claude/skills
+cp -R skills/nature-* ~/.claude/skills/
+
+export CLAUDE_PLUGIN_ROOT="$(pwd)"
+pip install -r scripts/requirements.txt
+```
+
+#### Option 4: OpenClaw
 
 ```bash
 git clone https://github.com/Yang1Bai/nature-paper-hub.git
@@ -408,35 +465,13 @@ cp -R nature-paper-hub ~/.openclaw/workspace/skills/
 # Restart OpenClaw. Say "选刊" or "choose journal" to activate.
 ```
 
-#### Option 3: Claude Code (manual subagent)
+#### Validate Install
 
 ```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-
-mkdir -p ~/.claude/agents
-cp nature-paper-hub/skills/nature-paper-hub/SKILL.md ~/.claude/agents/nature-paper-hub.md
-cp nature-paper-hub/skills/nature-reviewer-sim/SKILL.md ~/.claude/agents/nature-reviewer-sim.md
-cp nature-paper-hub/skills/nature-figure/SKILL.md ~/.claude/agents/nature-figure.md
-cp nature-paper-hub/skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
-cp nature-paper-hub/skills/nature-citation/SKILL.md ~/.claude/agents/nature-citation.md
-cp nature-paper-hub/skills/nature-paper2ppt/SKILL.md ~/.claude/agents/nature-paper2ppt.md
+python -m unittest discover -s tests
 ```
 
-#### Option 4: Codex
-
-```bash
-git clone https://github.com/Yang1Bai/nature-paper-hub.git
-mkdir -p ~/.codex/skills
-for d in nature-paper-hub/skills/nature-*; do
-  cp -R "$d" ~/.codex/skills/
-done
-```
-
-#### Python dependencies
-
-```bash
-pip install -r nature-paper-hub/scripts/requirements.txt
-```
+After manual installation, keep the clone in place; the `CLAUDE_PLUGIN_ROOT` directory is the resource root for scripts, templates, and the literature index.
 
 ---
 
