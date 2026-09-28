@@ -1,3 +1,13 @@
+## Journal URL monitor repair (2026-09-28)
+
+The weekly URL checker uses only Python's standard library and requires no API key.
+Five outdated Nature author-guide URLs were corrected. HTTP 401/403/429 responses
+are reported as **unverified**, not healthy. Network failures, 404/410 and persistent
+server errors still fail the check. Full results are saved in the run summary and
+the `journal-url-report` artifact. This replaces issue creation, which previously
+failed due to a missing label and insufficient token permissions; no issue-write
+permission or personal access token is needed.
+
 # 🧬 Top Journal Paper Hub
 
 <p align="center">

@@ -75,7 +75,7 @@
     },
     "nature_energy": {
       "name": "Nature Energy",
-      "url": "https://www.nature.com/nenergy/for-authors",
+      "url": "https://www.nature.com/nenergy/submission-guidelines",
       "impact_factor": 60.9,
       "acceptance_rate": "~8%",
       "article_types": {
@@ -93,7 +93,7 @@
     },
     "nature_catalysis": {
       "name": "Nature Catalysis",
-      "url": "https://www.nature.com/natcatal/for-authors",
+      "url": "https://www.nature.com/natcatal/submission-guidelines",
       "impact_factor": 37.8,
       "acceptance_rate": "~8%",
       "article_types": {
@@ -111,7 +111,7 @@
     },
     "nature_sustainability": {
       "name": "Nature Sustainability",
-      "url": "https://www.nature.com/natsustain/for-authors",
+      "url": "https://www.nature.com/natsustain/submission-guidelines",
       "impact_factor": 25.1,
       "acceptance_rate": "~10%",
       "article_types": {
@@ -127,7 +127,7 @@
     },
     "nature_communications": {
       "name": "Nature Communications",
-      "url": "https://www.nature.com/ncomms/for-authors",
+      "url": "https://www.nature.com/ncomms/submit",
       "impact_factor": 15.7,
       "acceptance_rate": "~20%",
       "open_access": true,
@@ -181,7 +181,7 @@
     },
     "nature_chemical_engineering": {
       "name": "Nature Chemical Engineering",
-      "url": "https://www.nature.com/natchemeng/for-authors",
+      "url": "https://www.nature.com/natchemeng/submission-guidelines",
       "impact_factor": 13.0,
       "acceptance_rate": "~8%",
       "article_types": {

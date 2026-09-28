@@ -2,94 +2,31 @@ name: Journal Spec URL Health Check
 
 on:
   schedule:
-    - cron: '0 9 * * 1'  # Every Monday at 09:00 UTC
-  workflow_dispatch:       # Manual trigger
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   check-journal-specs:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install requests
-
+      - name: Run repository integrity tests
+        run: python -m unittest discover -s tests
       - name: Check journal author guide URLs
-        id: url-check
-        run: |
-          python3 - <<'EOF'
-          import json
-          import requests
-          import sys
-          from pathlib import Path
-
-          spec_path = Path("templates/journal-specs.json")
-          specs = json.loads(spec_path.read_text(encoding="utf-8"))
-          urls = sorted({
-              journal["url"]
-              for journal in specs.get("journals", {}).values()
-              if journal.get("url")
-          })
-
-          failed = []
-          print(f"Journal spec URL health check ({len(urls)} URLs)")
-          print("=" * 50)
-
-          if not urls:
-              print("No URLs found in templates/journal-specs.json")
-              with open("check_result.txt", "w") as f:
-                  f.write("failed")
-              sys.exit(0)
-
-          for url in urls:
-              try:
-                  response = requests.get(url, timeout=15, allow_redirects=True,
-                                          headers={"User-Agent": "Mozilla/5.0 (journal-spec-check-bot)"})
-                  status = response.status_code
-                  # 200 = OK, 403 = bot-blocked but URL exists, both are fine
-                  ok = "✅" if status in (200, 403) else "❌"
-                  print(f"{ok}  [{status}] {url}")
-                  if status not in (200, 403):
-                      failed.append((url, status))
-              except Exception as e:
-                  print(f"❌  [ERR] {url} — {e}")
-                  failed.append((url, "ERROR"))
-
-          print("=" * 50)
-          if failed:
-              print(f"\n⚠️  {len(failed)} URL(s) returned non-200:")
-              for u, s in failed:
-                  print(f"   {s}  {u}")
-              print("\nSetting output: failed=true")
-              with open("check_result.txt", "w") as f:
-                  f.write("failed")
-              sys.exit(0)  # Don't fail the step; let the next step decide
-          else:
-              print("\n✅ All URLs returned an accepted status.")
-              with open("check_result.txt", "w") as f:
-                  f.write("ok")
-          EOF
-
-      - name: Create issue if any URL failed
-        run: |
-          result=$(cat check_result.txt)
-          if [ "$result" = "failed" ]; then
-            gh issue create \
-              --title "Journal spec URL check failed" \
-              --body "One or more journal author guide URLs from templates/journal-specs.json returned a non-accepted status. Please verify journal-specs.json is up to date." \
-              --label "maintenance" || \
-            gh issue create \
-              --title "Journal spec URL check failed" \
-              --body "One or more journal author guide URLs from templates/journal-specs.json returned a non-accepted status. Please verify journal-specs.json is up to date."
-          else
-            echo "All URLs OK — no issue created."
-          fi
+        run: python scripts/check_journal_urls.py
+      - name: Save detailed URL report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: journal-url-report
+          path: journal-url-report.md
+          if-no-files-found: warn
