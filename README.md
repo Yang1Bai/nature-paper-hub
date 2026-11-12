@@ -182,7 +182,7 @@ export LITREVIEW_API="https://your-host.example.com/api/search"   # 可选
 
 ### 快速上手
 
-#### OpenClaw / Telegram
+#### OpenClaw
 在对话中输入以下关键词直接跳转对应阶段：
 
 ```
@@ -288,7 +288,7 @@ nature-paper-hub/
 | 图表工作流 | CSV/Excel → 自动生图；matplotlib/R 投稿级图 | `nature-figure` 支持 Python/R 投稿图；强调源数据可追溯 | `figure-planner` 侧重图文结构和引用检查，未见自动生图脚本 |
 | 可交付格式 | LaTeX / Overleaf、Word `.docx`、PPTX | PPTX、专利 DOCX、LaTeX 排版支持；未见通用论文 Word 导出 | LaTeX/Overleaf 参考与演示支持；未见通用论文 Word 导出 |
 | Claude Code 打包 | `.claude-plugin/` 插件清单 + marketplace 元数据 | 可用于 Claude Code，但未见 `.claude-plugin/` 清单 | 提供 Claude Code 安装说明，但未见 `.claude-plugin/` 清单 |
-| Codex / OpenClaw | Codex 兼容；OpenClaw / Telegram 兼容 | Codex 优先；另含 OpenClaw medical skill 适配 | Codex + Claude Code 兼容 |
+| Codex / OpenClaw | Codex 兼容；OpenClaw 兼容 | Codex 优先；另含 OpenClaw medical skill 适配 | Codex + Claude Code 兼容 |
 
 ---
 
@@ -499,7 +499,7 @@ export LITREVIEW_API="https://your-host.example.com/api/search"   # optional
 
 ### Quick Start
 
-#### OpenClaw / Telegram
+#### OpenClaw
 
 ```
 选刊 / choose journal          → Select from 19 journals; see word/figure/ref limits
@@ -602,7 +602,7 @@ nature-paper-hub/
 | Figure workflow | CSV/Excel → auto figure; matplotlib/R publication figures | `nature-figure` supports Python/R publication figures and traceable source data | `figure-planner` focuses on figure story and reference checks; no auto-figure script found |
 | Deliverable formats | LaTeX / Overleaf, Word `.docx`, PPTX | PPTX, patent DOCX, LaTeX layout support; no general manuscript Word export found | LaTeX/Overleaf references and presentation support; no general manuscript Word export found |
 | Claude Code packaging | `.claude-plugin/` manifest + marketplace metadata | Usable from Claude Code, but no `.claude-plugin/` manifest found | Claude Code install docs, but no `.claude-plugin/` manifest found |
-| Codex / OpenClaw | Codex-compatible; OpenClaw / Telegram-compatible | Codex-first; also includes an OpenClaw medical skill adaptation | Codex + Claude Code compatible |
+| Codex / OpenClaw | Codex-compatible; OpenClaw-compatible | Codex-first; also includes an OpenClaw medical skill adaptation | Codex + Claude Code compatible |
 
 ---
 
